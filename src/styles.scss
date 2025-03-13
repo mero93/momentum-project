@@ -1,1 +1,99 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.cdnfonts.com/css/fredoka-one");
+@import "./scss/main.scss";
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: $max-width;
+}
+
+body {
+  font-family: FiraGO;
+  font-weight: 400;
+  color: $font-color;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: $primary-color $shade-color;
+}
+
+nav {
+  height: $nav-height;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  padding-left: $container-padding;
+  display: flex;
+  height: 38px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo > span {
+  color: #8338ec;
+  font-family: Fredoka One;
+  font-weight: 400;
+  font-size: 31px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.nav-btns {
+  display: flex;
+  align-items: center;
+  padding-right: $container-padding;
+}
+
+.btn {
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid $primary-color;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: white;
+  background-color: $primary-color;
+  border: none;
+}
+
+.btn-primary:disabled {
+  border-color: $primary-color-disabled;
+  background-color: $primary-color-disabled;
+}
+
+.btn-secondary {
+  color: $primary-color;
+  background-color: white;
+}
+
+.btn-secondary:disabled {
+  color: $primary-color-disabled;
+  border-color: $primary-color-disabled;
+}
+
+/*Space*/
+.mr-4 {
+  margin-right: 4px;
+}
+
+.mr-8 {
+  margin-right: 8px;
+}
+
+.mr-40 {
+  margin-right: 40px;
+}
+/*Space*/
