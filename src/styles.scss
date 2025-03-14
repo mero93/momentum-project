@@ -9,13 +9,13 @@
 
 .container {
   margin: 0 auto;
-  max-width: $max-width;
+  max-width: $max-width - 2 * ($container-padding);
 }
 
 body {
   font-family: FiraGO;
   font-weight: 400;
-  color: $font-color;
+  color: $font-color-lightdark;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: $primary-color $shade-color;
@@ -30,7 +30,6 @@ nav {
 }
 
 .logo {
-  padding-left: $container-padding;
   display: flex;
   height: 38px;
   align-items: center;
@@ -49,7 +48,6 @@ nav {
 .nav-btns {
   display: flex;
   align-items: center;
-  padding-right: $container-padding;
 }
 
 .btn {
@@ -59,7 +57,7 @@ nav {
   align-items: center;
   padding: 10px 20px;
   border-radius: 5px;
-  border: 1px solid $primary-color;
+  border: 2px solid $primary-color;
   cursor: pointer;
 }
 
@@ -75,13 +73,20 @@ nav {
 }
 
 .btn-secondary {
-  color: $primary-color;
+  color: $font-color-dark;
   background-color: white;
 }
 
 .btn-secondary:disabled {
-  color: $primary-color-disabled;
+  color: $font-color-lightdark;
   border-color: $primary-color-disabled;
+}
+
+.header {
+  font-weight: 600;
+  font-size: 34px;
+  letter-spacing: 0%;
+  color: $font-color-dark;
 }
 
 /*Space*/
