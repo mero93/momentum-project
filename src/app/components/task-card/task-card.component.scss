@@ -1,0 +1,47 @@
+@import "./../../../scss/variables";
+
+.card-wrapper {
+  border: 1px solid;
+  border-radius: 15px;
+  width: 380px;
+}
+
+.card-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.card-body {
+  margin: 8px 30.5px;
+  width: 320px;
+  overflow-wrap: break-word;
+}
+
+.card-body > header {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-bottom: 12px;
+}
+
+.card-body > p {
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: $font-color-dark;
+}
+
+.card-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.card-date {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+}

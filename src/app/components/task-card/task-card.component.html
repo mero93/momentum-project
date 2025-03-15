@@ -1,0 +1,32 @@
+<div class="card-wrapper">
+    <div class="card-line">
+      <div style="display: flex">
+        <div class="priority-tag priority-{{ task.priority?.id }} mr-10">
+          <img [src]="task.priority?.icon" alt="priority-icon" />
+          <span>{{ task.priority?.name }}</span>
+        </div>
+        <div class="department-tag department-{{ task.department?.id }}">
+          {{ task.department?.name }}
+        </div>
+      </div>
+      <p>{{task.due_date | date: 'dd MMM, yyyy' : undefined : 'ka-GE'}}</p>
+    </div>
+    <div class="card-body">
+      <header>{{ task.name }}</header>
+      <p>{{ task.description ? resolveDescription(task.description) : "" }}</p>
+    </div>
+    <div class="card-line">
+      <div>
+        <img
+          class="card-avatar"
+          [src]="resolveImgSrc(task.employee?.avatar)"
+          alt="employee-avatar"
+        />
+      </div>
+      <div style="display: flex;">
+        <img src="comment.svg" class="mr-4"/>
+        <span>{{task.total_comments?? 0}}</span>
+      </div>
+    </div>
+  </div>
+  

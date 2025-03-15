@@ -15,6 +15,9 @@
 body {
   font-family: FiraGO;
   font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0%;
+  line-height: 100%;
   color: $font-color-lightdark;
   overflow-y: scroll;
   scrollbar-width: thin;
@@ -87,9 +90,84 @@ nav {
   font-size: 34px;
   letter-spacing: 0%;
   color: $font-color-dark;
+  line-height: 100%;
+  margin-top: 40px;
 }
 
-/*Space*/
+//status
+.status-flex-container {
+  display: flex;
+  align-items: first baseline;
+}
+
+.status-column {
+  display: flex;
+  flex-direction: column;
+  margin-right: 52px;
+}
+
+.status-column > * {
+  margin-bottom: 30px;
+}
+
+.status-1 {
+  color: $status-1;
+}
+//status
+
+//tags
+.priority-tag {
+  display: flex;
+  border: 0.5px solid;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.priority-tag > span {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0%;
+}
+
+.priority-tag > img {
+  width: 16px;
+  margin-right: 4px;
+}
+
+.department-tag {
+  display: flex;
+  align-items: center;
+  color: white;
+  border-radius: 15px;
+  padding: 5px 9px 5px 9px;
+
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.priority-1 {
+  color: $priority-low;
+  border-color: $priority-low;
+}
+
+.priority-2 {
+  color: $priority-medium;
+  border-color: $priority-medium;
+}
+
+.priority-3 {
+  color: $priority-high;
+  border-color: $priority-high;
+}
+
+.department-1 {
+  background-color: $department-1;
+}
+//tags
+
+//Space
 .mr-4 {
   margin-right: 4px;
 }
@@ -98,7 +176,11 @@ nav {
   margin-right: 8px;
 }
 
+.mr-10 {
+  margin-right: 10px;
+}
+
 .mr-40 {
   margin-right: 40px;
 }
-/*Space*/
+//Space
