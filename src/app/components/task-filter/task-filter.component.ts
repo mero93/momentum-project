@@ -18,13 +18,11 @@ export class TaskFilterComponent {
 
   filter: TaskFilter = { departments: [], priorities: [] };
 
-  tempFilter: TaskFilter = { departments: [], priorities: [] };
+  pendingFilter: TaskFilter = { departments: [], priorities: [] };
 
   filterTags: Tag[] = [];
 
-  tagsToAdd: Tag[] = [];
-
-  tagsToRemove: Tag[] = [];
+  pendingTags: Tag[] = [];
 
   departments: Department[] = [
     {
@@ -97,7 +95,8 @@ export class TaskFilterComponent {
       if (this.dropdownToggle === dropdown) {
         this.dropdownToggle = '';
       } else {
-        this.tempFilter = this.deepCopy(this.filter);
+        this.pendingFilter = this.deepCopy(this.filter);
+        this.pendingTags = [...this.filterTags];
         this.dropdownToggle = dropdown;
       }
     } else {
@@ -107,8 +106,8 @@ export class TaskFilterComponent {
 
   updateFilter(): void {
     console.log(this.filter);
-    this.updateTags();
-    this.filter = this.tempFilter;
+    this.filterTags = this.pendingTags;
+    this.filter = this.pendingFilter;
     this.dropdownToggle = '';
   }
 
@@ -117,25 +116,45 @@ export class TaskFilterComponent {
       case 'departments':
       case 'priorities':
         {
-          console.log('we here');
           if (
-            this.tempFilter[this.dropdownToggle].filter((x) => x.id === item.id)
-              .length > 0
+            this.pendingFilter[this.dropdownToggle].filter(
+              (x) => x.id === item.id
+            ).length > 0
           ) {
-            this.tempFilter[this.dropdownToggle] = this.tempFilter[
+            this.pendingFilter[this.dropdownToggle] = this.pendingFilter[
               this.dropdownToggle
             ].filter((x) => x.id !== item.id);
-            this.tagsToRemove.push({ group: this.dropdownToggle, item });
+            this.pendingTags = this.pendingTags.filter(
+              (x) => x.group !== this.dropdownToggle || x.item.id !== item.id
+            );
           } else {
-            this.tempFilter[this.dropdownToggle].push(item);
-            this.tagsToAdd.push({ group: this.dropdownToggle, item });
+            this.pendingFilter[this.dropdownToggle].push(item);
+            this.pendingTags.push({ group: this.dropdownToggle, item });
+            // if (
+            //   this.tagsToAdd.filter(
+            //     (x) => x.group === this.dropdownToggle && x.item.id === item.id
+            //   ).length === 0
+            // ) {
+            //   this.tagsToAdd.push({ group: this.dropdownToggle, item });
+            // }
           }
         }
         break;
       case 'employee':
         {
-          this.tempFilter.employee = item as Employee;
-          this.tagsToAdd.push({ group: 'employee', item });
+          if (this.pendingFilter.employee?.id === item.id) {
+            this.pendingTags = this.pendingTags.filter(
+              (x) => x.group !== this.dropdownToggle
+            );
+            this.pendingFilter.employee = undefined;
+
+          } else {
+            this.pendingTags = this.pendingTags.filter(
+              (x) => x.group !== this.dropdownToggle
+            );
+            this.pendingTags.push({ group: this.dropdownToggle, item });
+            this.pendingFilter.employee = item as Employee;
+          }
         }
         break;
     }
@@ -143,7 +162,7 @@ export class TaskFilterComponent {
 
   clearFilter(): void {
     this.filter = { departments: [], priorities: [] };
-    this.tempFilter = { departments: [], priorities: [] };
+    this.pendingFilter = { departments: [], priorities: [] };
     this.filterTags = [];
   }
 
@@ -152,13 +171,14 @@ export class TaskFilterComponent {
       case 'departments':
       case 'priorities': {
         return (
-          this.tempFilter[this.dropdownToggle].filter((x) => x.id === item.id)
-            .length > 0
+          this.pendingFilter[this.dropdownToggle].filter(
+            (x) => x.id === item.id
+          ).length > 0
         );
       }
 
       case 'employee': {
-        return this.tempFilter.employee?.id === item.id;
+        return this.pendingFilter.employee?.id === item.id;
       }
     }
 
@@ -176,7 +196,7 @@ export class TaskFilterComponent {
         }
         break;
       case 'employee':
-        this.tempFilter.employee = undefined;
+        this.pendingFilter.employee = undefined;
         break;
     }
     this.filterTags = this.filterTags.filter(
@@ -188,14 +208,14 @@ export class TaskFilterComponent {
     return JSON.parse(JSON.stringify(obj));
   }
 
-  private updateTags(): void {
-    this.filterTags = this.filterTags.filter(
-      (x) =>
-        this.dropdownToggle !== x.group ||
-        this.tagsToRemove.filter((y) => y.item.id === x.item.id).length === 0
-    );
-    this.filterTags.push(...this.tagsToAdd);
-    this.tagsToAdd = [];
-    this.tagsToRemove = [];
-  }
+  // private updateTags(): void {
+  //   this.filterTags = this.filterTags.filter(
+  //     (x) =>
+  //       this.dropdownToggle !== x.group ||
+  //       this.tagsToRemove.filter((y) => y.item.id === x.item.id).length === 0
+  //   );
+  //   this.filterTags.push(...this.tagsToAdd);
+  //   this.tagsToAdd = [];
+  //   this.tagsToRemove = [];
+  // }
 }
