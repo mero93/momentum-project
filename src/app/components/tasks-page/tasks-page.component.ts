@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Task } from '../../interfaces/task';
 import { TaskCardComponent } from '../task-card/task-card.component';
+import { Status } from '../../interfaces/status';
+import { TaskFilterComponent } from "../task-filter/task-filter.component";
 
 @Component({
   selector: 'app-tasks-page',
-  imports: [TaskCardComponent],
+  imports: [TaskCardComponent, TaskFilterComponent],
   templateUrl: './tasks-page.component.html',
   styleUrl: './tasks-page.component.scss',
 })
@@ -30,4 +32,23 @@ export class TasksPageComponent {
       department_id: 1,
     },
   };
+
+  statuses: Status[] = [
+    {
+      id: 1,
+      name: 'დასაწყები',
+    },
+    {
+      id: 2,
+      name: 'პროგრესში',
+    },
+    {
+      id: 3,
+      name: 'მზად ტესტირებისთვის',
+    },
+    {
+      id: 4,
+      name: 'დასრულებული',
+    },
+  ];
 }

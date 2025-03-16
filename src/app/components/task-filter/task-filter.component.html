@@ -1,0 +1,73 @@
+<div class="dropdown-filter-container">
+  <div class="dropdown-toggler" (click)="toggleDropdown('departments')">
+    <span>დეპარტამენტი</span>
+    <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
+  </div>
+  <div class="dropdown-toggler" (click)="toggleDropdown('priorities')">
+    <span>პრიორიტეტი</span>
+    <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
+  </div>
+  <div class="dropdown-toggler" (click)="toggleDropdown('employee')">
+    <span>თანამშრომელი</span>
+    <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
+  </div>
+</div>
+
+<ng-container [ngSwitch]="dropdownToggle">
+  <div class="dropdown-menu" *ngSwitchCase="'departments'">
+    <p
+      class="dropdown-item"
+      *ngFor="let item of departments"
+      (click)="selectItem(item)"
+    >
+      <img
+        [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
+        alt="check-box"
+      />
+      <span>{{ item.name }}</span>
+    </p>
+    <div class="dropdown-button">
+      <button class="btn btn-primary btn-rounded" (click)="updateFilter()">
+        არჩევა
+      </button>
+    </div>
+  </div>
+  <div class="dropdown-menu" *ngSwitchCase="'priorities'">
+    <p
+      class="dropdown-item"
+      *ngFor="let item of priorities"
+      (click)="selectItem(item)"
+    >
+      <img
+        [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
+        alt="check-box"
+      />
+      <span>{{ item.name }}</span>
+    </p>
+    <div class="dropdown-button">
+      <button class="btn btn-primary btn-rounded" (click)="updateFilter()">
+        არჩევა
+      </button>
+    </div>
+  </div>
+  <div class="dropdown-menu" *ngSwitchCase="'employee'">
+    <p
+      class="dropdown-item"
+      *ngFor="let item of employees"
+      (click)="selectItem(item)"
+    >
+      <img
+        [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
+        alt="check-box"
+      />
+      <span>{{ item.name }}</span>
+    </p>
+    <div class="dropdown-button">
+      <button class="btn btn-primary btn-rounded" (click)="updateFilter()">
+        არჩევა
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+<div class="filter-tags"></div>
