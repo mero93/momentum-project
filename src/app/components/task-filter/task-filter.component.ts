@@ -5,6 +5,7 @@ import { Employee } from '../../interfaces/employee';
 import { TaskFilter } from '../../interfaces/task-filter';
 import { CommonModule } from '@angular/common';
 import { Department } from '../../interfaces/department';
+import { Tag } from '../../interfaces/tag';
 
 @Component({
   selector: 'app-task-filter',
@@ -18,6 +19,12 @@ export class TaskFilterComponent {
   filter: TaskFilter = { departments: [], priorities: [] };
 
   tempFilter: TaskFilter = { departments: [], priorities: [] };
+
+  filterTags: Tag[] = [];
+
+  tagsToAdd: Tag[] = [];
+
+  tagsToRemove: Tag[] = [];
 
   departments: Department[] = [
     {
@@ -100,6 +107,7 @@ export class TaskFilterComponent {
 
   updateFilter(): void {
     console.log(this.filter);
+    this.updateTags();
     this.filter = this.tempFilter;
     this.dropdownToggle = '';
   }
@@ -116,26 +124,27 @@ export class TaskFilterComponent {
           ) {
             this.tempFilter[this.dropdownToggle] = this.tempFilter[
               this.dropdownToggle
-            ].filter(x => x.id !== item.id);
+            ].filter((x) => x.id !== item.id);
+            this.tagsToRemove.push({ group: this.dropdownToggle, item });
           } else {
             this.tempFilter[this.dropdownToggle].push(item);
+            this.tagsToAdd.push({ group: this.dropdownToggle, item });
           }
         }
         break;
       case 'employee':
         {
           this.tempFilter.employee = item as Employee;
+          this.tagsToAdd.push({ group: 'employee', item });
         }
         break;
     }
-    console.log('filter', this.filter);
-    console.log('temporary filter', this.tempFilter);
-    console.log(this.filter.departments === this.tempFilter.departments);
   }
 
   clearFilter(): void {
     this.filter = { departments: [], priorities: [] };
     this.tempFilter = { departments: [], priorities: [] };
+    this.filterTags = [];
   }
 
   checkSelected(item: Department | Priority | Employee): boolean {
@@ -156,7 +165,37 @@ export class TaskFilterComponent {
     return false;
   }
 
+  removeTag(tag: Tag): void {
+    switch (tag.group) {
+      case 'departments':
+      case 'priorities':
+        {
+          this.filter[tag.group] = this.filter[tag.group].filter(
+            (x) => x.id !== tag.item.id
+          );
+        }
+        break;
+      case 'employee':
+        this.tempFilter.employee = undefined;
+        break;
+    }
+    this.filterTags = this.filterTags.filter(
+      (x) => x.group !== tag.group || x.item.id !== tag.item.id
+    );
+  }
+
   private deepCopy(obj: TaskFilter): TaskFilter {
     return JSON.parse(JSON.stringify(obj));
+  }
+
+  private updateTags(): void {
+    this.filterTags = this.filterTags.filter(
+      (x) =>
+        this.dropdownToggle !== x.group ||
+        this.tagsToRemove.filter((y) => y.item.id === x.item.id).length === 0
+    );
+    this.filterTags.push(...this.tagsToAdd);
+    this.tagsToAdd = [];
+    this.tagsToRemove = [];
   }
 }

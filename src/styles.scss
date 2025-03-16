@@ -99,7 +99,6 @@ nav {
   letter-spacing: 0%;
   color: $font-color-dark;
   line-height: 100%;
-  margin-top: 40px;
 }
 
 //status
@@ -218,6 +217,7 @@ nav {
 .dropdown-toggler > img {
   width: 24px;
   color: black;
+  transition: 0.35s ease-in-out;
 }
 
 .dropdown-toggler-focused {
@@ -225,7 +225,7 @@ nav {
 }
 
 .dropdown-toggler-focused > img {
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
   filter: invert(24%) sepia(93%) saturate(2218%) hue-rotate(254deg)
     brightness(92%) contrast(102%);
   transition: 0.35s ease-in-out;
@@ -286,11 +286,12 @@ nav {
   margin-right: 10px;
 }
 
-.filter-tag > spam {
+.filter-tag-text {
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
   margin-right: 5px;
+  padding: 6px 10px;
 }
 
 .filter-tag > img {

@@ -1,13 +1,25 @@
 <div class="dropdown-filter-container">
-  <div class="dropdown-toggler" (click)="toggleDropdown('departments')">
+  <div
+    class="dropdown-toggler"
+    (click)="toggleDropdown('departments')"
+    [ngClass]="{ 'dropdown-toggler-focused': dropdownToggle === 'departments' }"
+  >
     <span>დეპარტამენტი</span>
     <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
   </div>
-  <div class="dropdown-toggler" (click)="toggleDropdown('priorities')">
+  <div
+    class="dropdown-toggler"
+    (click)="toggleDropdown('priorities')"
+    [ngClass]="{ 'dropdown-toggler-focused': dropdownToggle === 'priorities' }"
+  >
     <span>პრიორიტეტი</span>
     <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
   </div>
-  <div class="dropdown-toggler" (click)="toggleDropdown('employee')">
+  <div
+    class="dropdown-toggler"
+    (click)="toggleDropdown('employee')"
+    [ngClass]="{ 'dropdown-toggler-focused': dropdownToggle === 'employee' }"
+  >
     <span>თანამშრომელი</span>
     <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
   </div>
@@ -70,4 +82,14 @@
   </div>
 </ng-container>
 
-<div class="filter-tags"></div>
+<div class="filter-tags">
+  <p class="filter-tag" *ngFor="let tag of filterTags">
+    <span class="filter-tag-text">{{ tag.item.name }}</span>
+    <img src="close.svg" alt="close-icon" (click)="removeTag(tag)" />
+  </p>
+  <ng-container *ngIf="filterTags.length > 0">
+    <p class="filter-tag-text" style="cursor: pointer" (click)="clearFilter()">
+      გასუფთავება
+    </p>
+  </ng-container>
+</div>

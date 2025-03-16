@@ -1,1 +1,12 @@
+<div class="card-line">
+  <div style="display: flex">
+    <div class="priority-tag priority-{{ task.priority?.id }} mr-10">
+      <img [src]="task.priority?.icon" alt="priority-icon" />
+      <span>{{ task.priority?.name }}</span>
+    </div>
+    <div class="department-tag department-{{ task.department?.id }}">
+      {{ task.department?.name }}
+    </div>
+  </div>
+</div>
 <header class="header">დავალების დეტალების გვერდი</header>
