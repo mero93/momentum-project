@@ -63,7 +63,7 @@
     </div>
   </div>
   <div class="dropdown-menu" *ngSwitchCase="'employee'">
-    <p
+    <div
       class="dropdown-item"
       *ngFor="let item of employees"
       (click)="selectItem(item)"
@@ -72,8 +72,11 @@
         [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
         alt="check-box"
       />
-      <span>{{ item.name }}</span>
-    </p>
+      <div style="display: flex; align-items: center;">
+        <img [src]="item.avatar" class="avatar mr-10" alt="avatar">
+        <span>{{ item.name }}</span>
+      </div>
+    </div>
     <div class="dropdown-button">
       <button class="btn btn-primary btn-rounded" (click)="updateFilter()">
         არჩევა

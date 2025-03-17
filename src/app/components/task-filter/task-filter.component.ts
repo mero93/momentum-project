@@ -130,13 +130,6 @@ export class TaskFilterComponent {
           } else {
             this.pendingFilter[this.dropdownToggle].push(item);
             this.pendingTags.push({ group: this.dropdownToggle, item });
-            // if (
-            //   this.tagsToAdd.filter(
-            //     (x) => x.group === this.dropdownToggle && x.item.id === item.id
-            //   ).length === 0
-            // ) {
-            //   this.tagsToAdd.push({ group: this.dropdownToggle, item });
-            // }
           }
         }
         break;
@@ -207,15 +200,4 @@ export class TaskFilterComponent {
   private deepCopy(obj: TaskFilter): TaskFilter {
     return JSON.parse(JSON.stringify(obj));
   }
-
-  // private updateTags(): void {
-  //   this.filterTags = this.filterTags.filter(
-  //     (x) =>
-  //       this.dropdownToggle !== x.group ||
-  //       this.tagsToRemove.filter((y) => y.item.id === x.item.id).length === 0
-  //   );
-  //   this.filterTags.push(...this.tagsToAdd);
-  //   this.tagsToAdd = [];
-  //   this.tagsToRemove = [];
-  // }
 }

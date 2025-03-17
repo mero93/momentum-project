@@ -1,0 +1,138 @@
+@import "./../../../scss/variables";
+
+.tags-line {
+  display: flex;
+  align-items: center;
+  margin: 50px 0 12px 0;
+}
+
+.divider {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.task-body {
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  max-width: 800px;
+  overflow-wrap: break-word;
+  color: black;
+}
+
+.sub-header {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin: 75px 0 25px 0;
+  color: $font-color-lightdark;
+}
+
+.details-line {
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+
+.details-title {
+  width: 240px;
+  display: flex;
+  align-items: center;
+}
+
+.details-title > img {
+  width: 24px;
+  margin-right: 6px;
+}
+
+.details-title > span {
+  font-size: 16px;
+  line-height: 150%;
+
+  color: #474747;
+}
+
+.value-text {
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: #0d0f10;
+}
+
+.secondary-text {
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #474747;
+}
+
+.custom-select {
+  min-width: 260px;
+  min-height: 45px;
+  position: relative;
+}
+
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  padding: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
+  z-index: 2;
+}
+
+// .custom-select::after {
+//   position: absolute;
+//   content: url("./../../../../public/dropdown-arrow.svg");
+//   font-size: 20px;
+//   pointer-events: none;
+//   text-align: center;
+//   right: 0px;
+//   top: 12px;
+// }
+
+.custom-select::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+  top: calc(50% - 7px);
+  width: 14px;
+  height: 14px;
+  background-image: url("./../../../../public/dropdown-arrow.svg");
+  background-size: 14px;
+  pointer-events: none;
+}
+
+.custom-select:focus::after {
+  rotate: -180deg;
+  transition: 0.35s;
+}
+
+option:checked {
+  background-color: #e8e8e8;
+}
+
+:root {
+  /* light theme */
+  --dropdown-background: #fff;
+  --dropdown-text-color: #000;
+  --dropdown-hover-color: #eee;
+  --dropdown-border-color: #caced1;
+  --dropdown-border-radius: 0.25em;
+  --dropdown-icon-color: #000;
+  --background-color: #eee;
+  --text-color: #000;
+}

@@ -28,7 +28,7 @@ export class TasksPageComponent {
       id: 1,
       name: 'test',
       surname: 'test',
-      avatar: '',
+      avatar: 'https://pbs.twimg.com/media/FhzlIPvUYAA7lIl.jpg',
       department_id: 1,
     },
   };
