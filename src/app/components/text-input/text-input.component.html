@@ -1,0 +1,57 @@
+<div>
+  <input
+    type="text"
+    *ngIf="!isTextArea"
+    [formControl]="$any(ngControl.control)"
+    [ngClass]="{
+      'check-failed': ngControl.touched && ngControl.control?.errors,
+      'check-passed': ngControl.touched && !ngControl.control?.errors
+    }"
+  />
+  <textarea
+    type="text"
+    *ngIf="isTextArea"
+    [formControl]="$any(ngControl.control)"
+  ></textarea>
+  <p
+    *ngIf="required"
+    class="validation-message"
+    [ngClass]="{
+      'check-failed': ngControl.touched && ngControl.control?.errors?.required,
+      'check-passed': ngControl.touched && !ngControl.control?.errors?.required
+    }"
+  >
+    <img src="check-sign.svg" alt="check-sign" />
+    შევსება სავალდებულოა
+  </p>
+  <p
+    *ngIf="minLength"
+    class="validation-message"
+    [ngClass]="{
+      'check-failed':
+        ngControl.touched &&
+        (ngControl.control?.errors?.minlength ||
+          ngControl.control?.errors?.required),
+      'check-passed':
+        ngControl.touched &&
+        !ngControl.control?.errors?.minlength &&
+        !ngControl.control?.errors?.required
+    }"
+  >
+    <img src="check-sign.svg" alt="check-sign" />
+    მინიმუმ
+    {{ minLength }} სიმბოლო
+  </p>
+  <p
+    *ngIf="maxLength"
+    class="validation-message"
+    [ngClass]="{
+      'check-failed': ngControl.touched && ngControl.control?.errors?.maxlength,
+      'check-passed': ngControl.touched && !ngControl.control?.errors?.maxlength
+    }"
+  >
+    <img src="check-sign.svg" alt="check-sign" />
+    მაქსიმუმ
+    {{ maxLength }} სიმბოლო
+  </p>
+</div>

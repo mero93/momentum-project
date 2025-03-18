@@ -1,0 +1,90 @@
+<div class="custom-dropdown-wrapper" [style.width]="width">
+  <div
+    class="custom-dropdown-toggler"
+    (click)="disabled ? null : toggleDropdown()"
+    [ngClass]="{
+      'dropdown-focus': toggle,
+      'check-failed': ngControl.touched && ngControl.control?.errors,
+      'check-passed': ngControl.touched && !ngControl.control?.errors
+    }"
+  >
+    <span>{{ ngControl.control?.value.name }}</span>
+    <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
+  </div>
+
+  <div>
+    <ng-container *ngIf="toggle && !type">
+      <div class="custom-dropdown-menu" [style.width]="width">
+        <p
+          class="custom-dropdown-item"
+          *ngFor="let item of items"
+          (click)="selectItem(item)"
+        >
+          <span>{{ item.name }}</span>
+        </p>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="toggle && type === 'employee'">
+      <div class="custom-dropdown-menu" [style.width]="width">
+        <p class="dropdown-add-button" (click)="addEmployee()">
+          <img src="add-button.svg" alt="add button" />
+          <span>დაამატე თანამშრომელი</span>
+        </p>
+        <p
+          class="custom-dropdown-item"
+          *ngFor="let item of items"
+          (click)="selectItem(item)"
+        >
+          <img
+            [src]="item.avatar"
+            class="dropdown-employee-avatar"
+            alt="avatar"
+          />
+          <span>{{ item.name }}</span>
+        </p>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="toggle && type === 'priority'">
+      <div class="custom-dropdown-menu" [style.width]="width">
+        <p
+          class="custom-dropdown-item"
+          *ngFor="let item of items"
+          (click)="selectItem(item)"
+        >
+          <img
+            [src]="item.icon"
+            alt="priority-icon"
+            class="dropdown-priority-icon"
+          />
+          <span>{{ item.name }}</span>
+        </p>
+      </div>
+    </ng-container>
+  </div>
+  <p
+    *ngIf="required"
+    class="validation-message"
+    [ngClass]="{
+      'check-failed': ngControl.touched && ngControl.control?.errors?.required,
+      'check-passed': ngControl.touched && !ngControl.control?.errors?.required
+    }"
+  >
+    <img src="check-sign.svg" alt="check-sign" />
+    შევსება სავალდებულოა
+  </p>
+  <p
+    *ngIf="type === 'employee'"
+    class="validation-message"
+    [ngClass]="{
+      'check-failed':
+        ngControl.touched && ngControl.control?.errors?.departmentEmpty,
+      'check-passed':
+        ngControl.touched && !ngControl.control?.errors?.departmentEmpty
+    }"
+  >
+    <img src="check-sign.svg" alt="check-sign" />
+    პირველ რიგში აირჩიეთ დეპარტამენტი
+  </p>
+</div>

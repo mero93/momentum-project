@@ -1,0 +1,97 @@
+@import "./../../../scss/variables";
+
+.custom-dropdown-wrapper {
+  position: relative;
+}
+
+.custom-dropdown-toggler {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1px solid #caced1;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 100%;
+}
+
+.custom-dropdown-toggler > img {
+  transition: (0.25s) ease-in-out;
+  width: 14px;
+}
+
+.dropdown-add-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: $primary-color;
+}
+
+.dropdown-add-button > img {
+  margin-right: 8px;
+  height: 48px;
+  width: 18px;
+}
+
+.dropdown-add-button > span {
+  font-family: FiraGO;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 1px;
+}
+
+.custom-dropdown-menu {
+  z-index: 1;
+  width: 100%;
+  background-color: #fff;
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid $primary-color;
+  border-radius: 10px;
+  padding: 10px 14px 20px 14px;
+  margin-top: 5px;
+}
+
+.custom-dropdown-menu * {
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 100%;
+}
+
+.custom-dropdown-item {
+  display: flex;
+  width: fit-content;
+  height: 46px;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-focus > img {
+  rotate: -180deg;
+}
+
+.dropdown-employee-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.dropdown-priority-icon {
+  width: 15px;
+  margin-right: 6px;
+}
+
+.npe {
+    pointer-events: none;
+}

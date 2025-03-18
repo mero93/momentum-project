@@ -1,0 +1,103 @@
+<header class="header" style="margin: 40px 0 25px 0">
+  შექმენი ახალი დავალება
+</header>
+<div class="field npe">
+  <ng-container *ngIf="form">
+    <form (submit)="submit()" [formGroup]="form" class="npe">
+      <div>
+        <div class="inline npe" style="margin-bottom: 55px">
+          <div class="label-input-pair" style="margin-right: 160px">
+            <label for="">სათაური *</label>
+            <app-text-input
+              [formControl]="$any(form.controls.name)"
+              [minLength]="3"
+              [maxLength]="255"
+            ></app-text-input>
+          </div>
+          <div class="label-input-pair">
+            <label for="">დეპარტამენტი *</label>
+            <app-custom-select
+              [formControl]="$any(form.controls.department)"
+              [items]="departments"
+            ></app-custom-select>
+          </div>
+        </div>
+        <div class="inline" style="margin-bottom: 55px">
+          <div class="label-input-pair" style="margin-right: 160px">
+            <label for="">აღწერა</label>
+            <app-text-input
+              [formControl]="$any(form.controls.description)"
+              [isTextArea]="true"
+              [minLength]="4"
+              [maxLength]="255"
+            ></app-text-input>
+          </div>
+          <div class="label-input-pair">
+            <label for="">პასუხისმგებელი თანამშრომელი *</label>
+            <app-custom-select
+              [formControl]="$any(form.controls.employee)"
+              [items]="employees"
+              [type]="'employee'"
+              (onAddEmployee)="addEmployee()"
+              [disabled]="departmentIndex === 0"
+            ></app-custom-select>
+          </div>
+        </div>
+        <div class="inline npe" style="margin-bottom: 55px">
+          <div
+            class="label-input-pair"
+            style="width: 260px; margin-right: 30px"
+          >
+            <label for="">პრიორიტეტი *</label>
+            <app-custom-select
+              id="priority"
+              [formControl]="$any(form.controls.priority)"
+              [items]="priorities"
+              [width]="260"
+              [type]="'priority'"
+              dropdownToggle
+            ></app-custom-select>
+          </div>
+          <div
+            class="label-input-pair"
+            style="width: 260px; margin-right: 160px"
+          >
+            <label for="">სტატუსი *</label>
+            <app-custom-select
+              id="status"
+              [formControl]="$any(form.controls.status)"
+              [items]="statuses"
+            ></app-custom-select>
+          </div>
+          <div class="inline" style="margin-bottom: 55px">
+            <div class="label-input-pair" style="margin-right: 160px">
+              <label for="">დედლაინი *</label>
+              <input
+                type="date"
+                [formControl]="$any(form.controls.due_date)"
+                [ngClass]="{
+                  'check-failed':
+                    form.controls.due_date.touched &&
+                    form.controls.due_date.errors,
+                  'check-passed':
+                    form.controls.due_date.touched &&
+                    !form.controls.due_date.errors
+                }"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="inline" style="justify-content: end; width: 80%">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          stopPropagation
+          [disabled]="form.untouched || form.invalid"
+        >
+          დავალების შექმნა
+        </button>
+      </div>
+    </form>
+  </ng-container>
+</div>

@@ -93,16 +93,6 @@
   z-index: 2;
 }
 
-// .custom-select::after {
-//   position: absolute;
-//   content: url("./../../../../public/dropdown-arrow.svg");
-//   font-size: 20px;
-//   pointer-events: none;
-//   text-align: center;
-//   right: 0px;
-//   top: 12px;
-// }
-
 .custom-select::after {
   content: "";
   position: absolute;
