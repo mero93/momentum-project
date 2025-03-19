@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { Task } from '../../interfaces/task';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { Status } from '../../interfaces/status';
-import { TaskFilterComponent } from "../task-filter/task-filter.component";
+import { TaskFilterComponent } from '../task-filter/task-filter.component';
+import { AddEmployeeModalComponent } from '../add-employee-modal/add-employee-modal.component';
+import { Department } from '../../interfaces/department';
 
 @Component({
   selector: 'app-tasks-page',
-  imports: [TaskCardComponent, TaskFilterComponent],
+  imports: [TaskCardComponent, TaskFilterComponent, AddEmployeeModalComponent],
   templateUrl: './tasks-page.component.html',
   styleUrl: './tasks-page.component.scss',
 })
@@ -49,6 +51,37 @@ export class TasksPageComponent {
     {
       id: 4,
       name: 'დასრულებული',
+    },
+  ];
+
+  departments: Department[] = [
+    {
+      id: 1,
+      name: 'ადმინისტრაციის დეპარტამენტი',
+    },
+    {
+      id: 2,
+      name: 'ადამიანური რესურსების დეპარტამენტი',
+    },
+    {
+      id: 3,
+      name: 'ფინანსების დეპარტამენტი',
+    },
+    {
+      id: 4,
+      name: 'გაყიდვები და მარკეტინგის დეპარტამენტი',
+    },
+    {
+      id: 5,
+      name: 'ლოჯოსტიკის დეპარტამენტი',
+    },
+    {
+      id: 6,
+      name: 'ტექნოლოგიების დეპარტამენტი',
+    },
+    {
+      id: 7,
+      name: 'მედიის დეპარტამენტი',
     },
   ];
 }

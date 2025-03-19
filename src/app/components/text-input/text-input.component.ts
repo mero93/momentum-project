@@ -23,6 +23,7 @@ import { Validators } from '@angular/forms';
 })
 export class TextInputComponent implements ControlValueAccessor, OnInit {
   required: boolean = false;
+  @Input() width: number = 550;
   @Input() minLength: number | undefined;
   @Input() maxLength: number | undefined;
 

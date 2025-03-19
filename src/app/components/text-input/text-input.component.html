@@ -1,4 +1,4 @@
-<div>
+<div [style.width]="width + 'px'">
   <input
     type="text"
     *ngIf="!isTextArea"
@@ -7,11 +7,13 @@
       'check-failed': ngControl.touched && ngControl.control?.errors,
       'check-passed': ngControl.touched && !ngControl.control?.errors
     }"
+    style="width: inherit"
   />
   <textarea
     type="text"
     *ngIf="isTextArea"
     [formControl]="$any(ngControl.control)"
+    style="width: inherit"
   ></textarea>
   <p
     *ngIf="required"

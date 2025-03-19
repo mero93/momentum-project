@@ -17,7 +17,7 @@
           <div class="label-input-pair">
             <label for="">დეპარტამენტი *</label>
             <app-custom-select
-              [formControl]="$any(form.controls.department)"
+              [formControl]="$any(form.controls.department_id)"
               [items]="departments"
             ></app-custom-select>
           </div>
@@ -35,10 +35,10 @@
           <div class="label-input-pair">
             <label for="">პასუხისმგებელი თანამშრომელი *</label>
             <app-custom-select
-              [formControl]="$any(form.controls.employee)"
+              [formControl]="$any(form.controls.employee_id)"
               [items]="employees"
               [type]="'employee'"
-              (onAddEmployee)="addEmployee()"
+              (openModal)="openModal()"
               [disabled]="departmentIndex === 0"
             ></app-custom-select>
           </div>
@@ -51,7 +51,7 @@
             <label for="">პრიორიტეტი *</label>
             <app-custom-select
               id="priority"
-              [formControl]="$any(form.controls.priority)"
+              [formControl]="$any(form.controls.priority_id)"
               [items]="priorities"
               [width]="260"
               [type]="'priority'"
@@ -64,9 +64,9 @@
           >
             <label for="">სტატუსი *</label>
             <app-custom-select
-              id="status"
-              [formControl]="$any(form.controls.status)"
+              [formControl]="$any(form.controls.status_id)"
               [items]="statuses"
+              [width]="260"
             ></app-custom-select>
           </div>
           <div class="inline" style="margin-bottom: 55px">
@@ -101,3 +101,10 @@
     </form>
   </ng-container>
 </div>
+
+<ng-container *ngIf="modalToggle">
+  <app-add-employee-modal
+    [depId]="departmentIndex"
+    (closeModal)="onCloseModal()"
+  ></app-add-employee-modal>
+</ng-container>

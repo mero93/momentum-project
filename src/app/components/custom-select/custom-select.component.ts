@@ -28,7 +28,7 @@ export class CustomSelectComponent implements ControlValueAccessor, OnInit {
   @Input() items: any[] = [];
   @Input() type: string | undefined;
 
-  @Output() onAddEmployee = new EventEmitter<void>();
+  @Output() openModal = new EventEmitter<void>();
 
   constructor(
     @Self() public ngControl: NgControl,
@@ -62,7 +62,8 @@ export class CustomSelectComponent implements ControlValueAccessor, OnInit {
     this.toggle = false;
   }
 
-  addEmployee() {
-    this.onAddEmployee.emit();
+  onOpenModal() {
+    console.log('fired from custom-select');
+    this.openModal.emit();
   }
 }

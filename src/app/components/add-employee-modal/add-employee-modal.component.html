@@ -1,0 +1,102 @@
+<div class="bg" stopPropagation (click)="onCloseModal()">
+  <div class="modal">
+    <div class="modal-close">
+      <img src="cancel.jpg" alt="close" (click)="onCloseModal()" />
+    </div>
+    <div class="modal-content">
+      <div class="modal-header" style="display: flex; justify-content: center">
+        <header class="header" style="font-size: 32px; margin-bottom: 45px">
+          თანამშრომლის დამატება
+        </header>
+      </div>
+      <div class="inline" style="margin-bottom: 55px">
+        <div class="label-input-pair" style="margin-right: 45px">
+          <label for="">სახელი *</label>
+          <app-text-input
+            [formControl]="$any(form.controls.name)"
+            [minLength]="2"
+            [maxLength]="255"
+            [width]="385"
+          ></app-text-input>
+        </div>
+        <div class="label-input-pair" style="width: 385px">
+          <label for="">გვარი *</label>
+          <app-text-input
+            [formControl]="$any(form.controls.surname)"
+            [minLength]="2"
+            [maxLength]="255"
+            [width]="385"
+          ></app-text-input>
+        </div>
+      </div>
+      <div style="margin-bottom: 55px">
+        <div class="inline" style="margin-bottom: 4px">
+          <div class="label-input-pair" style="margin-right: 45px">
+            <label for="">ავატარი *</label>
+            <div
+              class="dropzone"
+              appDragNDrop
+              (fileUpload)="onFileUpload($event)"
+            >
+              <div class="img-wrapper">
+                <img class="img-preview" [src]="imgUrl" alt="preview" />
+                <div class="delete-button" (click)="deleteFile()">
+                  <img src="trash-2.svg" alt="trash" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p
+          class="validation-message"
+          [ngClass]="{
+            'check-failed': uploadStatus === 2,
+            'check-passed': uploadStatus === 1
+          }"
+        >
+          <img src="check-sign.svg" alt="check-sign" />
+          შევსება სავალდებულოა
+        </p>
+        <p
+          class="validation-message"
+          [ngClass]="{
+            'check-failed': uploadStatus === 2,
+            'check-passed': uploadStatus === 1
+          }"
+        >
+          <img src="check-sign.svg" alt="check-sign" />
+          სურათის ტიპის მაქსიმუმ 600kb ზომის ფაილი
+        </p>
+      </div>
+      <div class="inline" style="margin-bottom: 55px">
+        <div class="label-input-pair">
+          <label for="">დეპარტამენტი *</label>
+          <app-custom-select
+            [formControl]="$any(form.controls.department_id)"
+            [items]="departments"
+            [width]="385"
+          ></app-custom-select>
+        </div>
+      </div>
+    </div>
+    <div class="inline" style="justify-content: end">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        stopPropagation
+        style="margin-right: 22px"
+        (click)="onCloseModal()"
+      >
+        გაუქმება
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        stopPropagation
+        [disabled]="form.untouched || form.invalid"
+      >
+        თანამშრომლის დამატება
+      </button>
+    </div>
+  </div>
+</div>

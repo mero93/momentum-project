@@ -1,4 +1,4 @@
-<div class="custom-dropdown-wrapper" [style.width]="width">
+<div class="custom-dropdown-wrapper" [style.width]="width + 'px'">
   <div
     class="custom-dropdown-toggler"
     (click)="disabled ? null : toggleDropdown()"
@@ -8,7 +8,7 @@
       'check-passed': ngControl.touched && !ngControl.control?.errors
     }"
   >
-    <span>{{ ngControl.control?.value.name }}</span>
+    <span>{{ ngControl.control?.value?.name }}</span>
     <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
   </div>
 
@@ -27,7 +27,7 @@
 
     <ng-container *ngIf="toggle && type === 'employee'">
       <div class="custom-dropdown-menu" [style.width]="width">
-        <p class="dropdown-add-button" (click)="addEmployee()">
+        <p class="dropdown-add-button" (click)="onOpenModal()">
           <img src="add-button.svg" alt="add button" />
           <span>დაამატე თანამშრომელი</span>
         </p>

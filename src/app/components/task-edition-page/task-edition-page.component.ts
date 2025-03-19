@@ -16,6 +16,7 @@ import { TextInputComponent } from '../text-input/text-input.component';
 import { StopPropagationDirective } from '../../directives/stop-propagation.directive';
 import { CommonModule } from '@angular/common';
 import { CustomSelectComponent } from '../custom-select/custom-select.component';
+import { AddEmployeeModalComponent } from '../add-employee-modal/add-employee-modal.component';
 
 @Component({
   selector: 'app-task-edition-page',
@@ -26,11 +27,13 @@ import { CustomSelectComponent } from '../custom-select/custom-select.component'
     TextInputComponent,
     StopPropagationDirective,
     CustomSelectComponent,
+    AddEmployeeModalComponent,
   ],
   templateUrl: './task-edition-page.component.html',
   styleUrl: './task-edition-page.component.scss',
 })
 export class TaskEditionPageComponent implements OnInit {
+  modalToggle: boolean = false;
   departmentIndex = 0;
   form!: FormGroup;
 
@@ -140,35 +143,36 @@ export class TaskEditionPageComponent implements OnInit {
       ],
       description: ['', [Validators.minLength(4), Validators.maxLength(255)]],
       due_date: ['', [Validators.required]],
-      status: [
+      status_id: [
         this.statuses.filter((x) => x.id === 1)[0],
         [Validators.required],
       ],
-      priority: [
+      priority_id: [
         this.priorities.filter((x) => x.id === 2)[0],
         [Validators.required],
       ],
-      department: ['', [Validators.required]],
-      employee: ['', [Validators.required, this.checkDepartments()]],
+      department_id: ['', [Validators.required]],
+      employee_id: ['', [Validators.required, this.checkDepartments()]],
     });
     this.form.controls.due_date.setValue(
       new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000).toString()
     );
-    this.form.controls.status.markAsTouched();
-    this.form.controls.priority.markAsTouched();
-    this.form.controls.department.valueChanges.subscribe((x) => {
+    this.form.controls.status_id.markAsTouched();
+    this.form.controls.priority_id.markAsTouched();
+    this.form.controls.department_id.valueChanges.subscribe((x) => {
       if (x.id !== this.departmentIndex) {
-        this.form.controls.employee.setValue('');
+        this.form.controls.employee_id.setValue('');
         this.departmentIndex = x.id;
-        this.form.controls.employee.updateValueAndValidity();
-        this.form.controls.employee.markAsTouched();
+        this.form.controls.employee_id.updateValueAndValidity();
+        this.form.controls.employee_id.markAsTouched();
+        this.form.controls.department_id.markAsTouched();
       }
     });
   }
 
   checkDepartments(): ValidatorFn {
     return (control: AbstractControl) => {
-      const val = (control?.parent?.controls as any)?.department?.value;
+      const val = (control?.parent?.controls as any)?.department_id?.value;
       return val && val.id !== 0 ? null : { departmentEmpty: true };
     };
   }
@@ -177,5 +181,12 @@ export class TaskEditionPageComponent implements OnInit {
     console.log('form', this.form);
   }
 
-  addEmployee() {}
+  openModal() {
+    console.log('modal should open');
+    this.modalToggle = true;
+  }
+
+  onCloseModal() {
+    this.modalToggle = false;
+  }
 }

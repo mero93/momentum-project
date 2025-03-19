@@ -4,7 +4,7 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
 import { TaskEditionPageComponent } from './components/task-edition-page/task-edition-page.component';
 
 export const routes: Routes = [
-  { path: 'tasks', component: TaskEditionPageComponent },
+  { path: 'tasks', component: TasksPageComponent },
   { path: 'tasks/:id', component: TaskDetailsComponent },
   { path: 'add-task', component: TaskEditionPageComponent },
   { path: '', redirectTo: '/tasks', pathMatch: 'full' },

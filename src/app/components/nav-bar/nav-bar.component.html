@@ -4,7 +4,16 @@
     <img src="default.svg" alt="logo" />
   </div>
   <div class="nav-btns">
-    <button class="btn btn-secondary mr-40">თანამშრომლის შექმნა</button>
+    <button class="btn btn-secondary mr-40" (click)="openModal()">
+      თანამშრომლის შექმნა
+    </button>
     <button class="btn btn-primary">+ შექმენი ახალი დავალება</button>
   </div>
 </nav>
+
+<ng-container *ngIf="modalToggle">
+  <app-add-employee-modal
+    [departments]="departments"
+    (closeModal)="onCloseModal()"
+  ></app-add-employee-modal>
+</ng-container>
