@@ -17,6 +17,17 @@ import { StopPropagationDirective } from '../../directives/stop-propagation.dire
 import { CommonModule } from '@angular/common';
 import { CustomSelectComponent } from '../custom-select/custom-select.component';
 import { AddEmployeeModalComponent } from '../add-employee-modal/add-employee-modal.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DateAdapter } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+
+import {
+  MatMomentDateModule,
+  MomentDateAdapter,
+  provideMomentDateAdapter,
+} from '@angular/material-moment-adapter';
+import 'moment/locale/ka';
 
 @Component({
   selector: 'app-task-edition-page',
@@ -28,12 +39,17 @@ import { AddEmployeeModalComponent } from '../add-employee-modal/add-employee-mo
     StopPropagationDirective,
     CustomSelectComponent,
     AddEmployeeModalComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
   ],
   templateUrl: './task-edition-page.component.html',
   styleUrl: './task-edition-page.component.scss',
 })
 export class TaskEditionPageComponent implements OnInit {
   modalToggle: boolean = false;
+  readonly minDate = new Date();
   departmentIndex = 0;
   form!: FormGroup;
 
@@ -124,10 +140,11 @@ export class TaskEditionPageComponent implements OnInit {
   ];
   ///temprorary///
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private dateAdapter: DateAdapter<any>) {}
 
   ngOnInit(): void {
     console.log(this.priorities.filter((x) => x.id === 2)[0]);
+    this.dateAdapter.setLocale('ka');
     this.buildForm();
   }
 
@@ -142,7 +159,10 @@ export class TaskEditionPageComponent implements OnInit {
         ],
       ],
       description: ['', [Validators.minLength(4), Validators.maxLength(255)]],
-      due_date: ['', [Validators.required]],
+      due_date: [
+        new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        [Validators.required],
+      ],
       status_id: [
         this.statuses.filter((x) => x.id === 1)[0],
         [Validators.required],
@@ -154,9 +174,9 @@ export class TaskEditionPageComponent implements OnInit {
       department_id: ['', [Validators.required]],
       employee_id: ['', [Validators.required, this.checkDepartments()]],
     });
-    this.form.controls.due_date.setValue(
-      new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000).toString()
-    );
+    // this.form.controls.due_date.setValue(
+    //   new Date(new Date().getTime() + 3 * 24 * 60 * 60 * 1000).toString()
+    // );
     this.form.controls.status_id.markAsTouched();
     this.form.controls.priority_id.markAsTouched();
     this.form.controls.department_id.valueChanges.subscribe((x) => {
