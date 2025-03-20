@@ -4,10 +4,11 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Department } from '../../interfaces/department';
 import { Status } from '../../interfaces/status';
 import { FormsModule } from '@angular/forms';
+import { CommentSectionComponent } from "../comments/comment-section/comment-section.component";
 
 @Component({
   selector: 'app-task-details',
-  imports: [DatePipe, CommonModule, FormsModule],
+  imports: [DatePipe, CommonModule, FormsModule, CommentSectionComponent],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss',
 })

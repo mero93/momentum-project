@@ -1,0 +1,27 @@
+@import "./../../../../scss/variables";
+
+.wrapper {
+  width: 740px;
+  height: 1000px;
+  border-radius: 10px;
+  background-color: #f8f3fea6;
+  border: 0.3px solid #ddd2ff;
+  padding: 40px 45px 40px 50px;
+}
+
+.sub-header {
+  color: $font-color-dark;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 1px;
+}
+
+.counter {
+  border-radius: 24px;
+  background-color: $primary-color;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 5px 10px;
+}

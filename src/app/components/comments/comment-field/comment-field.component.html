@@ -1,0 +1,16 @@
+<div class="comment-field">
+  <textarea
+    name="comment"
+    placeholder="დაწერე კომენტარი"
+    [(ngModel)]="text"
+  ></textarea>
+  <div class="inline" style="justify-content: end">
+    <button
+      class="btn btn-primary"
+      [disabled]="checkComment()"
+      (click)="onSubmit()"
+    >
+      დააკომენტარე
+    </button>
+  </div>
+</div>

@@ -3,12 +3,11 @@ import { Task } from '../../interfaces/task';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { Status } from '../../interfaces/status';
 import { TaskFilterComponent } from '../task-filter/task-filter.component';
-import { AddEmployeeModalComponent } from '../add-employee-modal/add-employee-modal.component';
 import { Department } from '../../interfaces/department';
 
 @Component({
   selector: 'app-tasks-page',
-  imports: [TaskCardComponent, TaskFilterComponent, AddEmployeeModalComponent],
+  imports: [TaskCardComponent, TaskFilterComponent],
   templateUrl: './tasks-page.component.html',
   styleUrl: './tasks-page.component.scss',
 })

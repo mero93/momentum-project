@@ -1,0 +1,22 @@
+<div class="comment">
+  <img [src]="comment.author_avatar" alt="avatar" />
+  <div style="width: 100%">
+    <header class="comment-nickname">{{ comment.author_nickname }}</header>
+    <p class="comment-body">{{ comment.text }}</p>
+    <ng-container *ngIf="!comment.parent_id">
+      <div class="comment-reply" (click)="showReplyInput()">
+        <img src="reply.svg" alt="reply" />
+        <span>უპასუხე</span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="replyToggle"
+      ><app-comment-field
+        [parent_id]="comment.id"
+        (commentSubmitted)="onReplySubmitted($event)"
+      ></app-comment-field
+    ></ng-container>
+    <ng-container *ngFor="let reply of comment.sub_comments">
+      <app-comment [comment]="reply"></app-comment>
+    </ng-container>
+  </div>
+</div>
