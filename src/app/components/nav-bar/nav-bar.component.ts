@@ -31,6 +31,7 @@ export class NavBarComponent implements OnInit {
   }
 
   onSubmit(event: Employee) {
+    console.log('submitted', event);
     this.api.postEmployee(event).subscribe();
   }
 

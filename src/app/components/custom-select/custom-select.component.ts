@@ -49,11 +49,17 @@ export class CustomSelectComponent implements ControlValueAccessor, OnInit {
   onClick(event: any) {
     if (!this.element.nativeElement.contains(event.target)) {
       console.log('clicked outside');
+      if (this.toggle && !this.ngControl.control?.touched) {
+        this.ngControl.control?.markAsTouched();
+      }
       this.toggle = false;
     }
   }
 
   toggleDropdown() {
+    if (this.toggle && !this.ngControl.control?.touched) {
+      this.ngControl.control?.markAsTouched();
+    }
     this.toggle = !this.toggle;
   }
 

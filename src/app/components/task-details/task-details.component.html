@@ -1,60 +1,65 @@
-<div class="tags-line">
-  <div class="priority-tag priority-{{ task.priority?.id }} mr-10">
-    <img [src]="task.priority?.icon" alt="priority-icon" />
-    <span>{{ task.priority?.name }}</span>
-  </div>
-  <div class="department-tag department-{{ task.department?.id }}">
-    {{ task.department?.name }}
-  </div>
-</div>
-<div class="divider">
-  <div>
-    <header class="header" style="margin-bottom: 36px">
-      დავალების დეტალების გვერდი
-    </header>
-    <p class="task-body">{{ task.description }}</p>
-    <div class="sub-header">დავალების დეტალები</div>
-    <div class="details-line">
-      <div class="details-title">
-        <img src="pie-chart.svg" alt="status-icon" />
-        <span>სტატუსი</span>
-      </div>
-      <div class="custom-select">
-        <select [(ngModel)]="task.status">
-          <option *ngFor="let status of statuses" [value]="status">
-            {{ status.name }}
-          </option>
-        </select>
-      </div>
+<ng-container *ngIf="task">
+  <div class="tags-line">
+    <div class="priority-tag priority-{{ task.priority?.id }} mr-10">
+      <img [src]="task.priority?.icon" alt="priority-icon" />
+      <span>{{ task.priority?.name }}</span>
     </div>
-    <div class="details-line">
-      <div class="details-title">
-        <img src="employee.svg" alt="status-icon" />
-        <span>თანამშრომელი</span>
-      </div>
-      <div style="display: flex; align-items: center">
-        <img
-          src="{{ resolveImgSrc(task.employee?.avatar) }}"
-          class="avatar mr-10"
-          alt=""
-        />
-        <div style="display: flex; flex-direction: column">
-          <span class="secondary-text">{{
-            getDepartmentNameById(task.employee?.department_id!)
-          }}</span>
-          <span class="value-text">{{ task.employee?.name }}</span>
+    <div class="department-tag department-{{ task.department?.id }}">
+      {{ task.department?.name }}
+    </div>
+  </div>
+  <div class="divider">
+    <div>
+      <header class="header" style="margin-bottom: 36px">
+        {{ task.name }}
+      </header>
+      <p class="task-body">{{ task.description }}</p>
+      <div class="sub-header">დავალების დეტალები</div>
+      <div class="details-line">
+        <div class="details-title">
+          <img src="pie-chart.svg" alt="status-icon" />
+          <span>სტატუსი</span>
+        </div>
+        <div class="custom-select">
+          <select
+            [(ngModel)]="task.status"
+            (ngModelChange)="updateTaskStatus()"
+          >
+            <option *ngFor="let status of statuses" [value]="status">
+              {{ status.name }}
+            </option>
+          </select>
         </div>
       </div>
-    </div>
-    <div class="details-line">
-      <div class="details-title">
-        <img src="calendar.svg" alt="status-icon" />
-        <span>დავალების ვადა</span>
+      <div class="details-line">
+        <div class="details-title">
+          <img src="employee.svg" alt="status-icon" />
+          <span>თანამშრომელი</span>
+        </div>
+        <div style="display: flex; align-items: center">
+          <img
+            src="{{ resolveImgSrc(task.employee?.avatar) }}"
+            class="avatar mr-10"
+            alt=""
+          />
+          <div style="display: flex; flex-direction: column">
+            <span class="secondary-text">{{
+              getDepartmentNameById(task.employee?.department_id!)
+            }}</span>
+            <span class="value-text">{{ task.employee?.name }}</span>
+          </div>
+        </div>
       </div>
-      <p class="value-text">
-        {{ task.due_date | date : "EEE - dd/MM/yyyy" : undefined : "ka-GE" }}
-      </p>
+      <div class="details-line">
+        <div class="details-title">
+          <img src="calendar.svg" alt="status-icon" />
+          <span>დავალების ვადა</span>
+        </div>
+        <p class="value-text">
+          {{ task.due_date | date : "EEE - dd/MM/yyyy" : undefined : "ka-GE" }}
+        </p>
+      </div>
     </div>
+    <div><app-comment-section> </app-comment-section></div>
   </div>
-  <div><app-comment-section> </app-comment-section></div>
-</div>
+</ng-container>

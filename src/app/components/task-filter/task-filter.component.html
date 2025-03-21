@@ -27,17 +27,19 @@
 
 <ng-container [ngSwitch]="dropdownToggle">
   <div class="dropdown-menu" *ngSwitchCase="'departments'">
-    <p
-      class="dropdown-item"
-      *ngFor="let item of departments"
-      (click)="selectItem(item)"
-    >
-      <img
-        [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
-        alt="check-box"
-      />
-      <span>{{ item.name }}</span>
-    </p>
+    <div class="dropdown-item-list">
+      <p
+        class="dropdown-item"
+        *ngFor="let item of departments"
+        (click)="selectItem(item)"
+      >
+        <img
+          [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
+          alt="check-box"
+        />
+        <span>{{ item.name }}</span>
+      </p>
+    </div>
     <div class="dropdown-button">
       <button class="btn btn-primary btn-rounded" (click)="updateFilter()">
         არჩევა
@@ -45,17 +47,19 @@
     </div>
   </div>
   <div class="dropdown-menu" *ngSwitchCase="'priorities'">
-    <p
-      class="dropdown-item"
-      *ngFor="let item of priorities"
-      (click)="selectItem(item)"
-    >
-      <img
-        [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
-        alt="check-box"
-      />
-      <span>{{ item.name }}</span>
-    </p>
+    <div class="dropdown-item-list">
+      <p
+        class="dropdown-item"
+        *ngFor="let item of priorities"
+        (click)="selectItem(item)"
+      >
+        <img
+          [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
+          alt="check-box"
+        />
+        <span>{{ item.name }}</span>
+      </p>
+    </div>
     <div class="dropdown-button">
       <button class="btn btn-primary btn-rounded" (click)="updateFilter()">
         არჩევა
@@ -63,18 +67,20 @@
     </div>
   </div>
   <div class="dropdown-menu" *ngSwitchCase="'employee'">
-    <div
-      class="dropdown-item"
-      *ngFor="let item of employees"
-      (click)="selectItem(item)"
-    >
-      <img
-        [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
-        alt="check-box"
-      />
-      <div style="display: flex; align-items: center;">
-        <img [src]="item.avatar" class="avatar mr-10" alt="avatar">
-        <span>{{ item.name }}</span>
+    <div class="dropdown-item-list">
+      <div
+        class="dropdown-item"
+        *ngFor="let item of employees"
+        (click)="selectItem(item)"
+      >
+        <img
+          [src]="checkSelected(item) ? 'checked.svg' : 'check-box.svg'"
+          alt="check-box"
+        />
+        <div style="display: flex; align-items: center">
+          <img [src]="item.avatar" class="avatar mr-10" alt="avatar" />
+          <span>{{ item.name }}</span>
+        </div>
       </div>
     </div>
     <div class="dropdown-button">

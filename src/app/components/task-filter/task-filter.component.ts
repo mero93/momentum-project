@@ -15,6 +15,7 @@ import { Tag } from '../../interfaces/tag';
 })
 export class TaskFilterComponent {
   dropdownToggle: string = '';
+  oldDropdownStatus: string = '';
 
   filter: TaskFilter = { departments: [], priorities: [] };
 
@@ -22,7 +23,7 @@ export class TaskFilterComponent {
 
   filterTags: Tag[] = [];
 
-  pendingTags: Tag[] = [];
+  pendingFilterTags: Tag[] = [];
 
   @Input() departments!: Department[];
 
@@ -31,23 +32,26 @@ export class TaskFilterComponent {
   @Input() employees!: Employee[];
 
   toggleDropdown(dropdown?: string): void {
-    if (dropdown) {
-      if (this.dropdownToggle === dropdown) {
-        this.dropdownToggle = '';
-      } else {
+    if (dropdown && this.dropdownToggle !== dropdown) {
+      if (this.oldDropdownStatus === '') {
         this.pendingFilter = this.deepCopy(this.filter);
-        this.pendingTags = [...this.filterTags];
-        this.dropdownToggle = dropdown;
+        this.pendingFilterTags = [...this.filterTags];
       }
+      this.dropdownToggle = dropdown;
     } else {
       this.dropdownToggle = '';
+      this.clearPendingFilter();
     }
+
+    this.oldDropdownStatus = this.dropdownToggle;
+    console.log(
+      `current dropdown ${this.dropdownToggle} old dropdown ${this.oldDropdownStatus}`
+    );
   }
 
   updateFilter(): void {
-    console.log(this.filter);
-    this.filterTags = this.pendingTags;
-    this.filter = this.pendingFilter;
+    this.filter = this.deepCopy(this.pendingFilter);
+    this.filterTags = [...this.pendingFilterTags];
     this.dropdownToggle = '';
   }
 
@@ -57,45 +61,56 @@ export class TaskFilterComponent {
       case 'priorities':
         {
           if (
-            this.pendingFilter[this.dropdownToggle].filter(
+            this.pendingFilter[this.dropdownToggle].some(
               (x) => x.id === item.id
-            ).length > 0
+            )
           ) {
             this.pendingFilter[this.dropdownToggle] = this.pendingFilter[
               this.dropdownToggle
             ].filter((x) => x.id !== item.id);
-            this.pendingTags = this.pendingTags.filter(
+            this.pendingFilterTags = this.pendingFilterTags.filter(
               (x) => x.group !== this.dropdownToggle || x.item.id !== item.id
             );
           } else {
             this.pendingFilter[this.dropdownToggle].push(item);
-            this.pendingTags.push({ group: this.dropdownToggle, item });
+            this.pendingFilterTags.push({
+              group: this.dropdownToggle,
+              item: item,
+            });
           }
         }
         break;
       case 'employee':
         {
           if (this.pendingFilter.employee?.id === item.id) {
-            this.pendingTags = this.pendingTags.filter(
-              (x) => x.group !== this.dropdownToggle
-            );
             this.pendingFilter.employee = undefined;
-          } else {
-            this.pendingTags = this.pendingTags.filter(
+            this.pendingFilterTags = this.pendingFilterTags.filter(
               (x) => x.group !== this.dropdownToggle
             );
-            this.pendingTags.push({ group: this.dropdownToggle, item });
+          } else {
             this.pendingFilter.employee = item as Employee;
+            this.pendingFilterTags.push({
+              group: this.dropdownToggle,
+              item: item,
+            });
           }
         }
+
         break;
     }
+
+    console.log(this.pendingFilter, this.filter);
   }
 
   clearFilter(): void {
     this.filter = { departments: [], priorities: [] };
-    this.pendingFilter = { departments: [], priorities: [] };
     this.filterTags = [];
+    this.clearPendingFilter();
+  }
+
+  clearPendingFilter(): void {
+    this.pendingFilter = { departments: [], priorities: [] };
+    this.pendingFilterTags = [];
   }
 
   checkSelected(item: Department | Priority | Employee): boolean {
@@ -117,6 +132,7 @@ export class TaskFilterComponent {
     return false;
   }
 
+  setFilterTags() {}
   removeTag(tag: Tag): void {
     switch (tag.group) {
       case 'departments':
