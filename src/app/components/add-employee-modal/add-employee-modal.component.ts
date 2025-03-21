@@ -68,7 +68,7 @@ export class AddEmployeeModalComponent implements OnInit {
           Validators.pattern(PATTERN),
         ],
       ],
-      department_id: [
+      department: [
         this.depId
           ? this.departments.filter((x) => x.id === this.depId)[0]
           : '',
@@ -76,8 +76,8 @@ export class AddEmployeeModalComponent implements OnInit {
       ],
       avatar: ['', [Validators.required]],
     });
-    this.form.controls.department_id.valueChanges.subscribe(() =>
-      this.form.controls.department_id.markAsTouched()
+    this.form.controls.department.valueChanges.subscribe(() =>
+      this.form.controls.department.markAsTouched()
     );
   }
 
@@ -103,18 +103,12 @@ export class AddEmployeeModalComponent implements OnInit {
   }
 
   onSubmit() {
-    const employe: Employee = {
-      id: this.form.value.id,
-      name: this.form.value.name,
-      surname: this.form.value.surname,
-      avatar: this.form.value.avatar,
-      department_id: this.form.value.department_id.id,
-    };
+    const employee: Employee = this.form.value;
 
-    this.submit.emit(employe);
+    this.submit.emit(employee);
     this.deleteFile();
     this.form.reset();
-    this.form.controls.department_id.markAsUntouched();
+    this.form.controls.department.markAsUntouched();
     this.uploadStatus = 0;
   }
 }

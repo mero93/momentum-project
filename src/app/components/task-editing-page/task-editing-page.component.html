@@ -3,7 +3,7 @@
 </header>
 <div class="field npe">
   <ng-container *ngIf="form">
-    <form (submit)="submit()" [formGroup]="form" class="npe">
+    <form (submit)="onSubmit()" [formGroup]="form">
       <div>
         <div class="inline npe" style="margin-bottom: 55px">
           <div class="label-input-pair" style="margin-right: 160px">
@@ -17,7 +17,7 @@
           <div class="label-input-pair">
             <label for="">დეპარტამენტი *</label>
             <app-custom-select
-              [formControl]="$any(form.controls.department_id)"
+              [formControl]="$any(form.controls.department)"
               [items]="departments"
             ></app-custom-select>
           </div>
@@ -35,8 +35,8 @@
           <div class="label-input-pair">
             <label for="">პასუხისმგებელი თანამშრომელი *</label>
             <app-custom-select
-              [formControl]="$any(form.controls.employee_id)"
-              [items]="employees"
+              [formControl]="$any(form.controls.employee)"
+              [items]="employeesByDepartment"
               [type]="'employee'"
               (openModal)="openModal()"
               [disabled]="departmentIndex === 0"
@@ -51,7 +51,7 @@
             <label for="">პრიორიტეტი *</label>
             <app-custom-select
               id="priority"
-              [formControl]="$any(form.controls.priority_id)"
+              [formControl]="$any(form.controls.priority)"
               [items]="priorities"
               [width]="260"
               [type]="'priority'"
@@ -64,7 +64,7 @@
           >
             <label for="">სტატუსი *</label>
             <app-custom-select
-              [formControl]="$any(form.controls.status_id)"
+              [formControl]="$any(form.controls.status)"
               [items]="statuses"
               [width]="260"
             ></app-custom-select>
@@ -98,6 +98,14 @@
         >
           დავალების შექმნა
         </button>
+        <!-- <button
+          type="button"
+          class="btn btn-secondary"
+          stopPropagation
+          (click)="randomiseTasks()"
+        >
+          დავალებების რანდომიზაცია
+        </button> -->
       </div>
     </form>
   </ng-container>
@@ -106,6 +114,8 @@
 <ng-container *ngIf="modalToggle">
   <app-add-employee-modal
     [depId]="departmentIndex"
+    [departments]="departments"
+    (submit)="onEmployeeSubmit($event)"
     (closeModal)="onCloseModal()"
   ></app-add-employee-modal>
 </ng-container>

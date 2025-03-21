@@ -310,8 +310,8 @@ nav {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 30px;
-  margin: 25px 0 15px 0;
+  min-height: 50px;
+  margin: 10px 0 20px 0;
 }
 
 .filter-tag {
@@ -320,7 +320,7 @@ nav {
   border: 1px solid #ced4da;
   border-radius: 10px;
   padding: 6px 10px;
-  margin: 0 10px 10px 0;
+  margin: 10px 10px 0 0;
 }
 
 .filter-tag-text {
@@ -328,7 +328,6 @@ nav {
   line-height: 100%;
   letter-spacing: 0%;
   margin-right: 5px;
-  padding: 6px 10px;
 }
 
 .filter-tag > img {
@@ -430,12 +429,13 @@ p.check-passed {
 input.check-failed,
 textarea.check-failed,
 div.check-failed {
-  border-color: #fa4d4d;
+  border-color: #fa4d4d !important;
 }
 
 input.check-passed,
-textarea.check-passed div.check-passed {
-  border-color: #08a508;
+textarea.check-passed,
+div.check-passed {
+  border-color: #08a508 !important;
 }
 
 p.check-failed > img {

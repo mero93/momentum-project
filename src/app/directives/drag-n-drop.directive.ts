@@ -44,7 +44,7 @@ export class DragNDropDirective {
     if (event.dataTransfer) {
       const file = event.dataTransfer.files[0];
 
-      if (file.type.indexOf('image') === -1 || file.size > 600000) {
+      if (file.type.indexOf('image') === -1 || file.size > 600 * 1024) {
         console.log(file.type);
         this.fileUpload.emit();
         return;

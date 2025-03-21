@@ -63,16 +63,14 @@ export class ApiConnectionService {
     );
   }
 
-  postEmployee(employee: any) {
+  addEmployee(employee: Employee) {
     const formData = new FormData();
-    formData.append('name', employee.name);
-    formData.append('surname', employee.surname);
-    formData.append('avatar', employee.avatar);
-    formData.append('department_id', employee.department_id);
-    console.log('form data', formData);
+    formData.append('name', employee.name!);
+    formData.append('surname', employee.surname!);
+    formData.append('avatar', employee.avatar!);
+    formData.append('department_id', employee.department!.id!.toString());
     return this.http.post(API_SERVER + 'employees', formData).pipe(
       map((res) => {
-        console.log('employees', res);
         this.toastr.success('თანამშრომელი წარმატებით დაემატა');
         if (this.employees) {
           this.employees.push(res as Employee);
@@ -91,7 +89,7 @@ export class ApiConnectionService {
     );
   }
 
-  postComment(comment: CommentInterface) {
+  addComment(comment: CommentInterface) {
     return this.http.post(API_SERVER + 'comments', comment).pipe(
       map((res) => {
         console.log('comment', res);
@@ -119,32 +117,36 @@ export class ApiConnectionService {
     );
   }
 
-  postTask(task: Task) {
-    const taskToSend = {
-      id: task.id,
-      name: task.name,
-      description: task.description,
-      due_date: task.due_date,
-      status_id: task.status?.id,
-      department_id: task.department?.id,
-      employee_id: task.employee?.id,
-      priority_id: task.priority?.id,
-    };
-    return this.http.post(API_SERVER + 'tasks', taskToSend).pipe(
+  addTask(task: any) {
+    const formData = new FormData();
+
+    formData.append('name', task.name!);
+    formData.append('description', task.description);
+    formData.append('due_date', task.due_date);
+    formData.append('status_id', task.status.id.toString());
+    formData.append('employee_id', task.employee.id.toString());
+    formData.append('priority_id', task.priority.id.toString());
+
+    return this.http.post(API_SERVER + 'tasks', formData).pipe(
       map((res) => {
         console.log('tasks', res);
+        if (this.tasks) {
+          this.tasks.push(res as Task);
+        }
+
+        return res as Task;
       })
     );
   }
 
-  changeTaskStatus(status_id: number, id: number) {
-    return this.http.put(API_SERVER + 'tasks/' + id, status_id).pipe(
+  changeTaskStatus(status: number, id: number) {
+    return this.http.put(API_SERVER + 'tasks/' + id, status).pipe(
       map((res) => {
         if (this.tasks) {
           this.tasks = this.tasks.map((task) => {
             if (task.id === id) {
               task.status = this.statuses.find(
-                (status) => status.id === status_id
+                (status) => status.id === status
               );
             }
             return task;
