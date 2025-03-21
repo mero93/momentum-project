@@ -1,0 +1,42 @@
+@import "./variables";
+
+.btn {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid $primary-color;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: white;
+  background-color: $primary-color;
+  border: none;
+}
+
+.btn-primary:disabled {
+  border-color: $primary-color-disabled;
+  background-color: $primary-color-disabled;
+}
+
+.btn-secondary {
+  color: $font-color-dark;
+  background-color: white;
+}
+
+.btn-secondary:disabled {
+  color: $font-color-lightdark;
+  border-color: $primary-color-disabled;
+}
+
+.btn-rounded {
+  width: 155px;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 7px 0;
+  letter-spacing: 1px;
+}

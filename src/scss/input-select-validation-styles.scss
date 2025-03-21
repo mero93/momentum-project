@@ -1,0 +1,88 @@
+.label-input-pair {
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label-input-pair > label {
+  font-size: 16px;
+  line-height: 100%;
+  margin-bottom: 6px;
+  color: #343a40;
+}
+
+input,
+textarea {
+  border: 1px solid #dee2e6;
+  outline: none;
+  border-radius: 5px;
+  padding: 14px;
+  width: 550px;
+  margin-bottom: 4px;
+  font-size: 350;
+  font-size: 14px;
+  color: #212529;
+}
+
+input {
+  height: 45px;
+}
+
+textarea {
+  height: 135px;
+  resize: none;
+  overflow: hidden;
+}
+
+.validation-message {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-weight: 350;
+  font-size: 10px;
+  line-height: 100%;
+  color: #6c757d;
+}
+
+.validation-message > img {
+  width: 16px;
+  padding: 1px 2px;
+}
+
+p.check-failed {
+  color: #fa4d4d;
+}
+
+p.check-passed {
+  color: #08a508;
+}
+
+input.check-failed,
+textarea.check-failed,
+div.check-failed {
+  border-color: #fa4d4d !important;
+}
+
+input.check-passed,
+textarea.check-passed,
+div.check-passed {
+  border-color: #08a508 !important;
+}
+
+p.check-failed > img {
+  filter: invert(32%) sepia(66%) saturate(2974%) hue-rotate(340deg)
+    brightness(125%) contrast(96%);
+}
+
+p.check-passed > img {
+  filter: invert(39%) sepia(37%) saturate(4740%) hue-rotate(96deg)
+    brightness(100%) contrast(94%);
+}
+
+select.check-failed {
+  border-color: #fa4d4d;
+}
+
+select.check-passed {
+  border-color: #08a508;
+}

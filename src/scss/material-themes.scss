@@ -1,9 +1,9 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 html {
-    @include mat.theme(
-        (
-            color: mat.$cyan-palette,
-        )
+  @include mat.theme(
+    (
+      color: mat.$cyan-palette,
     )
+  );
 }

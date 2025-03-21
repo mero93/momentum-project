@@ -1,0 +1,78 @@
+@import "./variables";
+
+.priority-tag {
+  display: flex;
+  align-items: center;
+  border: 0.5px solid;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.priority-tag > span {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0%;
+}
+
+.priority-tag > img {
+  width: 16px;
+  margin-right: 4px;
+}
+
+.department-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  border-radius: 15px;
+  padding: 6px 10px;
+
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.priority-1 {
+  color: $priority-low;
+  border-color: $priority-low;
+}
+
+.priority-2 {
+  color: $priority-medium;
+  border-color: $priority-medium;
+}
+
+.priority-3 {
+  color: $priority-high;
+  border-color: $priority-high;
+}
+
+.department-1 {
+  background-color: $department-1;
+}
+
+.department-2 {
+  background-color: #fa4d4d;
+}
+
+.department-3 {
+  background-color: #86ca4d;
+}
+
+.department-4 {
+  background-color: #3c8fb6;
+}
+
+.department-5 {
+  background-color: #c929ae;
+}
+
+.department-6 {
+  background-color: #cec115;
+}
+
+.department-7 {
+  background-color: #2c40af;
+}

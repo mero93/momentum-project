@@ -1,0 +1,45 @@
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  padding: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.custom-select::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  right: 10px;
+  top: calc(50% - 7px);
+  width: 14px;
+  height: 14px;
+  background-image: url("./../../public/dropdown-arrow.svg");
+  background-size: 14px;
+  pointer-events: none;
+}
+
+.custom-select:focus::after {
+  rotate: -180deg;
+  transition: 0.35s;
+}
+
+.custom-select {
+  min-width: 260px;
+  min-height: 45px;
+  position: relative;
+}
+
+option:checked {
+  background-color: #e8e8e8;
+}
