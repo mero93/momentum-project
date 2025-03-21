@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Department } from '../../interfaces/department';
 import { AddEmployeeModalComponent } from '../add-employee-modal/add-employee-modal.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Employee } from '../../interfaces/employee';
+import { ApiConnectionService } from '../../services/api-connection.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,39 +12,15 @@ import { RouterLink } from '@angular/router';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
   modalToggle: boolean = false;
+  departments!: Department[];
 
-  departments: Department[] = [
-    {
-      id: 1,
-      name: 'ადმინისტრაციის დეპარტამენტი',
-    },
-    {
-      id: 2,
-      name: 'ადამიანური რესურსების დეპარტამენტი',
-    },
-    {
-      id: 3,
-      name: 'ფინანსების დეპარტამენტი',
-    },
-    {
-      id: 4,
-      name: 'გაყიდვები და მარკეტინგის დეპარტამენტი',
-    },
-    {
-      id: 5,
-      name: 'ლოჯოსტიკის დეპარტამენტი',
-    },
-    {
-      id: 6,
-      name: 'ტექნოლოგიების დეპარტამენტი',
-    },
-    {
-      id: 7,
-      name: 'მედიის დეპარტამენტი',
-    },
-  ];
+  constructor(private api: ApiConnectionService) {}
+
+  ngOnInit(): void {
+    this.loadDepartments();
+  }
 
   onCloseModal() {
     this.modalToggle = false;
@@ -50,5 +28,19 @@ export class NavBarComponent {
 
   openModal() {
     this.modalToggle = true;
+  }
+
+  onSubmit(event: Employee) {
+    this.api.postEmployee(event).subscribe();
+  }
+
+  loadDepartments() {
+    if (this.api.departments) {
+      this.departments = this.api.departments;
+      return;
+    }
+    this.api.getDepartments().subscribe((departments) => {
+      this.departments = departments;
+    });
   }
 }

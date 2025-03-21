@@ -1,4 +1,4 @@
-<div class="bg" stopPropagation (click)="onCloseModal()">
+<div class="bg" stopPropagation (click)="onCloseModal()"></div>
   <div class="modal">
     <div class="modal-close">
       <img src="cancel.jpg" alt="close" (click)="onCloseModal()" />
@@ -90,13 +90,12 @@
         გაუქმება
       </button>
       <button
-        type="submit"
         class="btn btn-primary"
         stopPropagation
         [disabled]="form.untouched || form.invalid"
+        (click)="onSubmit()"
       >
         თანამშრომლის დამატება
       </button>
     </div>
   </div>
-</div>

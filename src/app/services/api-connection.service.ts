@@ -5,7 +5,7 @@ import { Priority } from '../interfaces/priority';
 import { Department } from '../interfaces/department';
 import { Employee } from '../interfaces/employee';
 import { Task } from '../interfaces/task';
-import { map } from 'rxjs';
+import { map, Observable, Subscriber } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CommentInterface } from '../interfaces/commentInterface';
 
@@ -63,8 +63,14 @@ export class ApiConnectionService {
     );
   }
 
-  postEmployee(employee: Employee) {
-    return this.http.post(API_SERVER + 'employees', employee).pipe(
+  postEmployee(employee: any) {
+    const formData = new FormData();
+    formData.append('name', employee.name);
+    formData.append('surname', employee.surname);
+    formData.append('avatar', employee.avatar);
+    formData.append('department_id', employee.department_id);
+    console.log('form data', formData);
+    return this.http.post(API_SERVER + 'employees', formData).pipe(
       map((res) => {
         console.log('employees', res);
         this.toastr.success('თანამშრომელი წარმატებით დაემატა');

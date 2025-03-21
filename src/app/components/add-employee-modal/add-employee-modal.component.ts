@@ -14,7 +14,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import { FileHandler } from '../../interfaces/file-handler';
 import { CommonModule } from '@angular/common';
 import { StopPropagationDirective } from '../../directives/stop-propagation.directive';
-
+import { Employee } from '../../interfaces/employee';
 const PATTERN = '^[a-zA-Zა-ჰ]+$';
 
 @Component({
@@ -40,6 +40,7 @@ export class AddEmployeeModalComponent implements OnInit {
   @Input() departments: Department[] = [];
 
   @Output() closeModal = new EventEmitter<void>();
+  @Output() submit = new EventEmitter<Employee>();
 
   constructor(private fb: FormBuilder) {}
 
@@ -81,6 +82,7 @@ export class AddEmployeeModalComponent implements OnInit {
   }
 
   onCloseModal() {
+    console.log('close modal fired');
     this.closeModal.emit();
   }
 
@@ -93,9 +95,26 @@ export class AddEmployeeModalComponent implements OnInit {
       this.deleteFile();
     }
   }
+
   deleteFile() {
     this.form.controls.avatar.setValue('');
     this.uploadStatus = 2;
     this.imgUrl = 'no-image.svg';
+  }
+
+  onSubmit() {
+    const employe: Employee = {
+      id: this.form.value.id,
+      name: this.form.value.name,
+      surname: this.form.value.surname,
+      avatar: this.form.value.avatar,
+      department_id: this.form.value.department_id.id,
+    };
+
+    this.submit.emit(employe);
+    this.deleteFile();
+    this.form.reset();
+    this.form.controls.department_id.markAsUntouched();
+    this.uploadStatus = 0;
   }
 }

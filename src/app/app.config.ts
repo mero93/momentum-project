@@ -1,4 +1,8 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -9,19 +13,22 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { tokenInterceptor } from './interceptors/token.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ToastrModule } from 'ngx-toastr';
-
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideAnimationsAsync(),
     provideMomentDateAdapter(),
     provideHttpClient(withFetch(), withInterceptors([tokenInterceptor])),
-    importProvidersFrom(ToastrModule.forRoot({
-      timeOut: 3000,
-      positionClass: 'toast-bottom-center',
-      preventDuplicates: true,
-    })),
+    importProvidersFrom(
+      ToastrModule.forRoot({
+        timeOut: 3000,
+        positionClass: 'toast-bottom-center',
+        preventDuplicates: true,
+      })
+    ),
   ],
 };

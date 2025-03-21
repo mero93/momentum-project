@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-const API_TOKEN = '9e7a0a11-eb03-46ee-9d72-f31713d3f906';
+const API_TOKEN = '9e7b7f6d-8315-485e-9855-c1e1e5c17f13';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const reqToSend = req.clone({

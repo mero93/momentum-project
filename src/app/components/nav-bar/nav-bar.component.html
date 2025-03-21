@@ -1,5 +1,5 @@
 <nav>
-  <div class="logo">
+  <div class="logo" routerLink="/tasks">
     <span class="mr-8">Momentum</span>
     <img src="default.svg" alt="logo" />
   </div>
@@ -17,5 +17,6 @@
   <app-add-employee-modal
     [departments]="departments"
     (closeModal)="onCloseModal()"
+    (submit)="onSubmit($event)"
   ></app-add-employee-modal>
 </ng-container>
