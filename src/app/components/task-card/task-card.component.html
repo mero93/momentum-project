@@ -5,14 +5,14 @@
         <img [src]="task.priority?.icon" alt="priority-icon" />
         <span>{{ task.priority?.name }}</span>
       </div>
-      <div class="department-tag department-{{ task.department?.id }}">
+      <div class="department-tag department-{{ task.department?.id }}" style="max-width: 150px;">
         {{ task.department?.name }}
       </div>
     </div>
     <p>{{ task.due_date | date : "dd MMM, yyyy" : undefined : "ka-GE" }}</p>
   </div>
   <div class="card-body">
-    <header>{{ task.name }}</header>
+    <header>{{ task.name? resolveName(task.name) : '' }}</header>
     <p>{{ task.description ? resolveDescription(task.description) : "" }}</p>
   </div>
   <div class="card-line">

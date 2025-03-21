@@ -4,6 +4,7 @@
   border: 1px solid;
   border-radius: 15px;
   width: 380px;
+  cursor: pointer;
 }
 
 .card-line {
@@ -20,7 +21,7 @@
 }
 
 .card-body > header {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;

@@ -15,68 +15,18 @@ import { Router } from '@angular/router';
   styleUrl: './task-details.component.scss',
 })
 export class TaskDetailsComponent implements OnInit {
-  constructor(
-    private apiConnection: ApiConnectionService,
-    private router: Router
-  ) {}
+  constructor(private api: ApiConnectionService, private router: Router) {}
 
   ngOnInit(): void {
-    this.apiConnection
-      .getTaskById(Number(this.router.url.split('/')[2]))
-      .subscribe((res) => (this.task = res));
+    this.loadTask();
+    this.loadStatuses();
   }
 
   task!: Task;
 
-  departments: Department[] = [
-    {
-      id: 1,
-      name: 'ადმინისტრაციის დეპარტამენტი',
-    },
-    {
-      id: 2,
-      name: 'ადამიანური რესურსების დეპარტამენტი',
-    },
-    {
-      id: 3,
-      name: 'ფინანსების დეპარტამენტი',
-    },
-    {
-      id: 4,
-      name: 'გაყიდვები და მარკეტინგის დეპარტამენტი',
-    },
-    {
-      id: 5,
-      name: 'ლოჯოსტიკის დეპარტამენტი',
-    },
-    {
-      id: 6,
-      name: 'ტექნოლოგიების დეპარტამენტი',
-    },
-    {
-      id: 7,
-      name: 'მედიის დეპარტამენტი',
-    },
-  ];
+  statusId!: number;
 
-  statuses: Status[] = [
-    {
-      id: 1,
-      name: 'დასაწყები',
-    },
-    {
-      id: 2,
-      name: 'პროგრესში',
-    },
-    {
-      id: 3,
-      name: 'მზად ტესტირებისთვის',
-    },
-    {
-      id: 4,
-      name: 'დასრულებული',
-    },
-  ];
+  statuses!: Status[];
 
   resolveImgSrc(src?: string): string {
     if (src && src.length > 0) {
@@ -85,13 +35,30 @@ export class TaskDetailsComponent implements OnInit {
     return 'no-image.svg';
   }
 
-  getDepartmentNameById(id: number): string {
-    const department = this.departments.find((dep) => dep.id === id);
-    return department?.name ?? 'უცნობი დეპარტამენტი';
+  loadTask() {
+    this.api
+      .getTaskById(Number(this.router.url.split('/')[2]))
+      .subscribe((res) => {
+        this.task = res;
+        this.statusId = this.task.status!.id!;
+      });
+  }
+
+  loadStatuses() {
+    if (this.statuses) {
+      this.statuses = this.statuses;
+    } else {
+      this.api.getStatuses().subscribe((res) => (this.statuses = res));
+    }
+  }
+
+  selectStatus(): Status {
+    return this.statuses.find((status) => 
+      status.id === Number(this.statusId))!;
   }
 
   updateTaskStatus() {
-    console.log('update task status', this.task.status);
-    //this.apiConnection.updateTaskStatus(this.task).subscribe();
+    this.task.status = this.selectStatus();
+    this.api.changeTaskStatus(this.statusId, this.task.id!).subscribe();
   }
 }

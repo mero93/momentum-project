@@ -21,14 +21,18 @@
           <span>სტატუსი</span>
         </div>
         <div class="custom-select">
-          <select
-            [(ngModel)]="task.status"
-            (ngModelChange)="updateTaskStatus()"
-          >
-            <option *ngFor="let status of statuses" [value]="status">
-              {{ status.name }}
-            </option>
-          </select>
+          <form name="form">
+            <select
+              id="status"
+              name="status"
+              [(ngModel)]="statusId"
+              (ngModelChange)="updateTaskStatus()"
+            >
+              <option *ngFor="let status of statuses" [value]="status.id">
+                {{ status.name }}
+              </option>
+            </select>
+          </form>
         </div>
       </div>
       <div class="details-line">
@@ -44,7 +48,7 @@
           />
           <div style="display: flex; flex-direction: column">
             <span class="secondary-text">{{
-              getDepartmentNameById(task.employee?.department_id!)
+              task.employee?.department?.name
             }}</span>
             <span class="value-text">{{ task.employee?.name }}</span>
           </div>
@@ -60,6 +64,8 @@
         </p>
       </div>
     </div>
-    <div><app-comment-section> </app-comment-section></div>
+    <div>
+      <app-comment-section [taskId]="task.id!"> </app-comment-section>
+    </div>
   </div>
 </ng-container>

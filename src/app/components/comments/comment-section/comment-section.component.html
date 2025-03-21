@@ -5,7 +5,7 @@
 
   <div class="inline" style="margin: 65px 0 20px 0">
     <header class="sub-header mr-8">კომენტარები</header>
-    <div class="counter">10</div>
+    <div class="counter">{{ comments? calculateTotalComments() : 0 }}</div>
   </div>
   <ng-container *ngFor="let comment of comments">
     <app-comment

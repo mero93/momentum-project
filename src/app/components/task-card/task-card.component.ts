@@ -20,6 +20,13 @@ export class TaskCardComponent {
       : whiteSpaceRemoved;
   }
 
+  resolveName(name: string): string {
+    const whiteSpaceRemoved = name.trim();
+    return whiteSpaceRemoved.length > 40
+      ? whiteSpaceRemoved.slice(0, 40) + '...'
+      : whiteSpaceRemoved;
+  }
+
   resolveImgSrc(src?: string): string {
     if (src && src.length > 0) {
       return src;
