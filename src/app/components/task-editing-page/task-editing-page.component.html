@@ -39,7 +39,7 @@
               [items]="employeesByDepartment"
               [type]="'employee'"
               (openModal)="openModal()"
-              [disabled2]="departmentIndex === 0"
+              [disabled2]="$any(!form.controls.department.value)"
             ></app-custom-select>
           </div>
         </div>

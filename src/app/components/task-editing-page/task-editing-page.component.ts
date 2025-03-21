@@ -156,6 +156,12 @@ export class TaskEditionPageComponent implements OnInit {
         [Validators.required, this.checkDepartments()],
       ],
     });
+    if (this.storedTask.department) {
+      this.departmentIndex = this.storedTask.department.id!;
+      this.employeesByDepartment = this.employees.filter(
+        (e) => e.department.id === this.departmentIndex
+      );
+    }
     this.form.controls.status.markAsTouched();
     this.form.controls.priority.markAsTouched();
     this.form.controls.department.valueChanges.subscribe((x) => {
@@ -184,9 +190,8 @@ export class TaskEditionPageComponent implements OnInit {
         localStorage.setItem('task', JSON.stringify(this.form.value));
         console.log('data stored');
       }
-    })
+    });
   }
-
 
   checkDepartments(): ValidatorFn {
     return (control: AbstractControl) => {
@@ -199,6 +204,8 @@ export class TaskEditionPageComponent implements OnInit {
     const task = this.form.value;
     task.due_date = this.datePipe.transform(task.due_date, 'yyyy-MM-dd');
     this.api.addTask(task).subscribe((res) => console.log(res));
+    this.storedTask = {};
+    this.document.defaultView?.localStorage.removeItem('task');
     this.buildForm();
   }
 

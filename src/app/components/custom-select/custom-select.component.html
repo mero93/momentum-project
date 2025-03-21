@@ -7,9 +7,36 @@
       'check-failed': ngControl.touched && ngControl.control?.errors,
       'check-passed': ngControl.touched && !ngControl.control?.errors
     }"
-
   >
-    <span>{{ ngControl.control?.value?.name }}</span>
+    <ng-container *ngIf="!type">
+      <span>{{ ngControl.control?.value?.name }}</span>
+    </ng-container>
+    <ng-container *ngIf="type === 'employee'">
+      <p class="custom-dropdown-item">
+        <ng-container *ngIf="ngControl.control?.value?.avatar">
+          <img
+            [src]="ngControl.control?.value?.avatar"
+            class="dropdown-employee-avatar"
+            alt="avatar"
+          />
+          <span>{{
+            ngControl.control?.value?.name +
+              " " +
+              ngControl.control?.value?.surname
+          }}</span>
+        </ng-container>
+      </p>
+    </ng-container>
+    <ng-container *ngIf="type === 'priority'">
+      <p class="custom-dropdown-item">
+        <img
+          [src]="ngControl.control?.value?.icon"
+          alt="priority-icon"
+          class="dropdown-priority-icon"
+        />
+        <span>{{ ngControl.control?.value?.name }}</span>
+      </p>
+    </ng-container>
     <img src="dropdown-arrow.svg" alt="dropdown-arrow" />
   </div>
 
@@ -42,7 +69,7 @@
             class="dropdown-employee-avatar"
             alt="avatar"
           />
-          <span>{{ item.name }}</span>
+          <span>{{ item.name + " " + item.surname }}</span>
         </p>
       </div>
     </ng-container>
