@@ -23,7 +23,7 @@ export class CustomSelectComponent implements ControlValueAccessor, OnInit {
   required: boolean = false;
 
   toggle: boolean = false;
-  @Input() disabled: boolean = false;
+  @Input() disabled2: boolean = false;
   @Input() width: number = 550;
   @Input() items: any[] = [];
   @Input() type: string | undefined;

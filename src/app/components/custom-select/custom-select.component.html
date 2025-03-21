@@ -1,7 +1,7 @@
 <div class="custom-dropdown-wrapper" [style.width]="width + 'px'">
   <div
     class="custom-dropdown-toggler"
-    (click)="disabled ? null : toggleDropdown()"
+    (click)="disabled2 ? null : toggleDropdown()"
     [ngClass]="{
       'dropdown-focus': toggle,
       'check-failed': ngControl.touched && ngControl.control?.errors,

@@ -39,7 +39,7 @@
               [items]="employeesByDepartment"
               [type]="'employee'"
               (openModal)="openModal()"
-              [disabled]="departmentIndex === 0"
+              [disabled2]="departmentIndex === 0"
             ></app-custom-select>
           </div>
         </div>
@@ -116,6 +116,6 @@
     [depId]="departmentIndex"
     [departments]="departments"
     (submit)="onEmployeeSubmit($event)"
-    (closeModal)="onCloseModal()"
+    (closeModal)="onCloseModal($event)"
   ></app-add-employee-modal>
 </ng-container>

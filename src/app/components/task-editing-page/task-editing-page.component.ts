@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { Department } from '../../interfaces/department';
 import { Employee } from '../../interfaces/employee';
 import { Priority } from '../../interfaces/priority';
@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { TextInputComponent } from '../text-input/text-input.component';
 import { StopPropagationDirective } from '../../directives/stop-propagation.directive';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, DOCUMENT } from '@angular/common';
 import { CustomSelectComponent } from '../custom-select/custom-select.component';
 import { AddEmployeeModalComponent } from '../add-employee-modal/add-employee-modal.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -25,7 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import 'moment/locale/ka';
 import { ApiConnectionService } from '../../services/api-connection.service';
-import { forkJoin, take } from 'rxjs';
+import { debounceTime, forkJoin, take } from 'rxjs';
 import { Task } from '../../interfaces/task';
 
 @Component({
@@ -63,12 +63,23 @@ export class TaskEditionPageComponent implements OnInit {
 
   employeesByDepartment: Employee[] = [];
 
+  storedTask: Task = {};
+
   constructor(
     private fb: FormBuilder,
     private dateAdapter: DateAdapter<any>,
     private api: ApiConnectionService,
-    private datePipe: DatePipe
-  ) {}
+    private datePipe: DatePipe,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    if (this.document.defaultView?.localStorage) {
+      const data = this.document.defaultView.localStorage.getItem('task');
+      if (data) {
+        this.storedTask = JSON.parse(data);
+        console.log('data restored', this.storedTask);
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.dateAdapter.setLocale('ka');
@@ -114,28 +125,36 @@ export class TaskEditionPageComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       name: [
-        '',
+        this.storedTask.name ?? '',
         [
           Validators.minLength(3),
           Validators.maxLength(255),
           Validators.required,
         ],
       ],
-      description: ['', [Validators.minLength(4), Validators.maxLength(255)]],
+      description: [
+        this.storedTask.description ?? '',
+        [Validators.minLength(4), Validators.maxLength(255)],
+      ],
       due_date: [
-        new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        this.storedTask.due_date ??
+          new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
         [Validators.required],
       ],
       status: [
-        this.statuses.filter((x) => x.id === 1)[0],
+        this.storedTask.status ?? this.statuses.filter((x) => x.id === 1)[0],
         [Validators.required],
       ],
       priority: [
-        this.priorities.filter((x) => x.id === 2)[0],
+        this.storedTask.priority ??
+          this.priorities.filter((x) => x.id === 2)[0],
         [Validators.required],
       ],
-      department: ['', [Validators.required]],
-      employee: ['', [Validators.required, this.checkDepartments()]],
+      department: [this.storedTask.department ?? '', [Validators.required]],
+      employee: [
+        this.storedTask.employee ?? '',
+        [Validators.required, this.checkDepartments()],
+      ],
     });
     this.form.controls.status.markAsTouched();
     this.form.controls.priority.markAsTouched();
@@ -145,13 +164,29 @@ export class TaskEditionPageComponent implements OnInit {
         this.employeesByDepartment = this.employees.filter(
           (e) => e.department.id === x.id
         );
-        // console.log('employees by department', this.employeesByDepartment);
         this.departmentIndex = x.id;
         this.form.controls.employee.markAsTouched();
         this.form.controls.department.markAsTouched();
+        this.form.controls.department.markAsDirty();
       }
     });
+    this.form.controls.employee.valueChanges.subscribe((x) => {
+      this.form.controls.employee.markAsDirty();
+    });
+    this.form.controls.status.valueChanges.subscribe((x) => {
+      this.form.controls.status.markAsDirty();
+    });
+    this.form.controls.priority.valueChanges.subscribe((x) => {
+      this.form.controls.priority.markAsDirty();
+    });
+    this.form.valueChanges.pipe(debounceTime(1000)).subscribe((x) => {
+      if (this.form.dirty) {
+        localStorage.setItem('task', JSON.stringify(this.form.value));
+        console.log('data stored');
+      }
+    })
   }
+
 
   checkDepartments(): ValidatorFn {
     return (control: AbstractControl) => {
@@ -172,7 +207,12 @@ export class TaskEditionPageComponent implements OnInit {
     this.modalToggle = true;
   }
 
-  onCloseModal() {
+  onCloseModal(changes: boolean) {
+    if (changes) {
+      let confirmed = window.confirm('გსურთ ფანჯრის დახურვა?');
+      if (!confirmed) return;
+    }
+
     this.modalToggle = false;
   }
 

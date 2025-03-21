@@ -39,7 +39,7 @@ export class AddEmployeeModalComponent implements OnInit {
   @Input() depId?: number;
   @Input() departments: Department[] = [];
 
-  @Output() closeModal = new EventEmitter<void>();
+  @Output() closeModal = new EventEmitter<boolean>();
   @Output() submit = new EventEmitter<Employee>();
 
   constructor(private fb: FormBuilder) {}
@@ -76,14 +76,14 @@ export class AddEmployeeModalComponent implements OnInit {
       ],
       avatar: ['', [Validators.required]],
     });
-    this.form.controls.department.valueChanges.subscribe(() =>
-      this.form.controls.department.markAsTouched()
-    );
+    this.form.controls.department.valueChanges.subscribe(() => {
+      this.form.controls.department.markAsTouched();
+      this.form.controls.department.markAsDirty();
+    });
   }
 
   onCloseModal() {
-    console.log('close modal fired');
-    this.closeModal.emit();
+    this.closeModal.emit(this.form.dirty);
   }
 
   onFileUpload(fileHandler?: FileHandler) {
@@ -91,6 +91,7 @@ export class AddEmployeeModalComponent implements OnInit {
       this.uploadStatus = 1;
       this.imgUrl = fileHandler.url;
       this.form.controls.avatar.setValue(fileHandler.file);
+      this.form.controls.avatar.markAsDirty();
     } else {
       this.deleteFile();
     }
@@ -98,6 +99,7 @@ export class AddEmployeeModalComponent implements OnInit {
 
   deleteFile() {
     this.form.controls.avatar.setValue('');
+    this.form.controls.avatar.markAsPristine();
     this.uploadStatus = 2;
     this.imgUrl = 'no-image.svg';
   }

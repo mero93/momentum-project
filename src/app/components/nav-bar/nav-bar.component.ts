@@ -22,7 +22,12 @@ export class NavBarComponent implements OnInit {
     this.loadDepartments();
   }
 
-  onCloseModal() {
+  onCloseModal(changes: boolean) {
+    if (changes) {
+      let confirmed = window.confirm('გსურთ ფანჯრის დახურვა?');
+      if (!confirmed) return;
+    }
+
     this.modalToggle = false;
   }
 
@@ -31,7 +36,6 @@ export class NavBarComponent implements OnInit {
   }
 
   onSubmit(event: Employee) {
-    console.log('submitted', event);
     this.api.addEmployee(event).subscribe();
   }
 
