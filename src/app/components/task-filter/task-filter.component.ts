@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Status } from '../../interfaces/status';
 import { Priority } from '../../interfaces/priority';
 import { Employee } from '../../interfaces/employee';
@@ -24,71 +24,11 @@ export class TaskFilterComponent {
 
   pendingTags: Tag[] = [];
 
-  departments: Department[] = [
-    {
-      id: 1,
-      name: 'ადმინისტრაციის დეპარტამენტი',
-    },
-    {
-      id: 2,
-      name: 'ადამიანური რესურსების დეპარტამენტი',
-    },
-    {
-      id: 3,
-      name: 'ფინანსების დეპარტამენტი',
-    },
-    {
-      id: 4,
-      name: 'გაყიდვები და მარკეტინგის დეპარტამენტი',
-    },
-    {
-      id: 5,
-      name: 'ლოჯოსტიკის დეპარტამენტი',
-    },
-    {
-      id: 6,
-      name: 'ტექნოლოგიების დეპარტამენტი',
-    },
-    {
-      id: 7,
-      name: 'მედიის დეპარტამენტი',
-    },
-  ];
+  @Input() departments!: Department[];
 
-  priorities: Priority[] = [
-    {
-      id: 1,
-      name: 'დაბალი',
-      icon: 'https://momentum.redberryinternship.ge/storage/priority-icons/Low.svg',
-    },
-    {
-      id: 2,
-      name: 'საშუალო',
-      icon: 'https://momentum.redberryinternship.ge/storage/priority-icons/Medium.svg',
-    },
-    {
-      id: 3,
-      name: 'მაღალი',
-      icon: 'https://momentum.redberryinternship.ge/storage/priority-icons/High.svg',
-    },
-  ];
+  @Input() priorities!: Priority[];
 
-  employees: Employee[] = [
-    {
-      id: 1,
-      name: 'ემილია',
-      surname: 'მორგანო',
-      avatar: 'https://pbs.twimg.com/media/FhzlIPvUYAA7lIl.jpg',
-      department_id: 1,
-    },
-    {
-      id: 2,
-      name: 'danny',
-      surname: 'devito',
-      avatar: 'https://pbs.twimg.com/media/FhzlIPvUYAA7lIl.jpg',
-      department_id: 2,
-    },
-  ];
+  @Input() employees!: Employee[];
 
   toggleDropdown(dropdown?: string): void {
     if (dropdown) {
@@ -140,7 +80,6 @@ export class TaskFilterComponent {
               (x) => x.group !== this.dropdownToggle
             );
             this.pendingFilter.employee = undefined;
-
           } else {
             this.pendingTags = this.pendingTags.filter(
               (x) => x.group !== this.dropdownToggle

@@ -1,10 +1,22 @@
 <header class="header" style="margin: 40px 0 52px 0">დავალებების გვერდი</header>
 
-<app-task-filter></app-task-filter>
+<app-task-filter
+  [departments]="departments"
+  [priorities]="priorities"
+  [employees]="employees"
+></app-task-filter>
 
-<div class="status-flex-container">
-  <div class="status-column">
-    <header class="status-panel status-panel-1">დასაწყები</header>
-    <app-task-card [task]="test"></app-task-card>
+<ng-container *ngIf="structuredTaskList">
+  <div class="status-flex-container">
+    <ng-container *ngFor="let statusTasks of structuredTaskList">
+      <div class="status-column">
+        <header class="status-panel status-panel-{{ statusTasks.status.id }}">
+          {{ statusTasks.status.name }}
+        </header>
+        <ng-container *ngFor="let task of statusTasks.tasks">
+          <app-task-card [task]="task"></app-task-card>
+        </ng-container>
+      </div>
+    </ng-container>
   </div>
-</div>
+</ng-container>

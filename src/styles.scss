@@ -119,19 +119,33 @@ nav {
 .status-flex-container {
   display: flex;
   align-items: first baseline;
+  justify-content: space-around;
 }
+
 .status-panel {
   text-align: center;
   color: white;
-  padding: 15px 0px;
-  max-width: 380px;
-  font-weight: 600;
+  padding: 15px 10px;
+  width: 380px;
+  font-weight: 500;
   font-size: 20px;
   border-radius: 10px;
 }
 
 .status-panel-1 {
   background-color: $status-1;
+}
+
+.status-panel-2 {
+  background-color: $status-2;
+}
+
+.status-panel-3 {
+  background-color: $status-3;
+}
+
+.status-panel-4 {
+  background-color: $status-4;
 }
 
 .status-column {
@@ -478,5 +492,11 @@ select.check-passed {
   border-color: #08a508;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

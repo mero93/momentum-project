@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Task } from '../../interfaces/task';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-task-card',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss',
 })
