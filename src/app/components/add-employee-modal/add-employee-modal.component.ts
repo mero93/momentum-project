@@ -109,8 +109,7 @@ export class AddEmployeeModalComponent implements OnInit {
 
     this.submit.emit(employee);
     this.deleteFile();
-    this.form.reset();
-    this.form.controls.department.markAsUntouched();
+    this.buildForm();
     this.uploadStatus = 0;
   }
 }

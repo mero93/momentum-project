@@ -19,7 +19,7 @@ export class ApiConnectionService {
   priorities!: Priority[];
   departments!: Department[];
   employees!: Employee[];
-  tasks!: Task[];
+  tasks?: Task[];
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
@@ -149,17 +149,10 @@ export class ApiConnectionService {
       .put(API_SERVER + 'tasks/' + id, { status_id: status_id })
       .pipe(
         map((res) => {
-          console.log('task', res);
           if (this.tasks) {
-            this.tasks = this.tasks.map((task) => {
-              if (task.id === id) {
-                task.status = this.statuses.find(
-                  (status) => status.id === status
-                );
-              }
-              return task;
-            });
+            this.tasks = undefined;
           }
+
           return res;
         })
       );

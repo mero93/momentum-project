@@ -43,6 +43,7 @@ export class TasksPageComponent implements OnInit {
   }
 
   getStructuredTaskList(filter?: TaskFilter) {
+    console.log('loading', this.api.tasks);
     if (!this.api.statuses && !this.api.tasks) {
       forkJoin([this.api.getTasks(), this.api.getStatuses()])
         .pipe(take(1))
