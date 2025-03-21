@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Status } from '../../interfaces/status';
 import { Priority } from '../../interfaces/priority';
 import { Employee } from '../../interfaces/employee';
@@ -31,6 +31,8 @@ export class TaskFilterComponent {
 
   @Input() employees!: Employee[];
 
+  @Output() sendFilter = new EventEmitter<TaskFilter>();
+
   toggleDropdown(dropdown?: string): void {
     if (dropdown && this.dropdownToggle !== dropdown) {
       if (this.oldDropdownStatus === '') {
@@ -53,6 +55,7 @@ export class TaskFilterComponent {
     this.filter = this.deepCopy(this.pendingFilter);
     this.filterTags = [...this.pendingFilterTags];
     this.dropdownToggle = '';
+    this.sendFilter.emit(this.filter);
   }
 
   selectItem(item: Department | Priority | Employee): void {
@@ -89,6 +92,9 @@ export class TaskFilterComponent {
             );
           } else {
             this.pendingFilter.employee = item as Employee;
+            this.pendingFilterTags = this.pendingFilterTags.filter(
+              (x) => x.group !== this.dropdownToggle
+            );
             this.pendingFilterTags.push({
               group: this.dropdownToggle,
               item: item,
@@ -99,12 +105,13 @@ export class TaskFilterComponent {
         break;
     }
 
-    console.log(this.pendingFilter, this.filter);
+    console.log(this.pendingFilterTags, this.filterTags);
   }
 
   clearFilter(): void {
     this.filter = { departments: [], priorities: [] };
     this.filterTags = [];
+    this.sendFilter.emit(this.filter);
     this.clearPendingFilter();
   }
 
@@ -132,7 +139,6 @@ export class TaskFilterComponent {
     return false;
   }
 
-  setFilterTags() {}
   removeTag(tag: Tag): void {
     switch (tag.group) {
       case 'departments':
@@ -144,12 +150,16 @@ export class TaskFilterComponent {
         }
         break;
       case 'employee':
-        this.pendingFilter.employee = undefined;
+        this.filter.employee = undefined;
         break;
     }
     this.filterTags = this.filterTags.filter(
       (x) => x.group !== tag.group || x.item.id !== tag.item.id
     );
+    this.pendingFilter = this.deepCopy(this.filter);
+    this.pendingFilterTags = [...this.filterTags];
+
+    this.sendFilter.emit(this.filter);
   }
 
   private deepCopy(obj: TaskFilter): TaskFilter {

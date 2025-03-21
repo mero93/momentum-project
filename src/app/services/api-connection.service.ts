@@ -95,7 +95,10 @@ export class ApiConnectionService {
       .post(API_SERVER + 'tasks/' + taskId + '/comments', comment)
       .pipe(
         map((res) => {
-          console.log('comment', res);
+          if (this.tasks) {
+            const taskToUpdate = this.tasks.find((task) => task.id === taskId)!;
+            taskToUpdate.total_comments!++;
+          }
 
           return res as CommentInterface;
         })
@@ -142,21 +145,23 @@ export class ApiConnectionService {
   }
 
   changeTaskStatus(status_id: number, id: number) {
-    return this.http.put(API_SERVER + 'tasks/' + id, {status_id: status_id}).pipe(
-      map((res) => {
-        console.log('task', res);
-        if (this.tasks) {
-          this.tasks = this.tasks.map((task) => {
-            if (task.id === id) {
-              task.status = this.statuses.find(
-                (status) => status.id === status
-              );
-            }
-            return task;
-          });
-        }
-        return res;
-      })
-    );
+    return this.http
+      .put(API_SERVER + 'tasks/' + id, { status_id: status_id })
+      .pipe(
+        map((res) => {
+          console.log('task', res);
+          if (this.tasks) {
+            this.tasks = this.tasks.map((task) => {
+              if (task.id === id) {
+                task.status = this.statuses.find(
+                  (status) => status.id === status
+                );
+              }
+              return task;
+            });
+          }
+          return res;
+        })
+      );
   }
 }

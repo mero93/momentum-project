@@ -94,11 +94,22 @@
 <div class="filter-tags">
   <p class="filter-tag" *ngFor="let tag of filterTags">
     <span class="filter-tag-text">{{ tag.item.name }}</span>
-    <img src="close.svg" alt="close-icon" (click)="removeTag(tag)" />
+    <img
+      src="close.svg"
+      alt="close-icon"
+      (click)="removeTag(tag)"
+      style="cursor: pointer"
+    />
   </p>
   <ng-container *ngIf="filterTags.length > 0">
-    <p class="filter-tag-text" style="cursor: pointer" (click)="clearFilter()">
-      გასუფთავება
+    <p class="filter-tag" style="border: none">
+      <span
+        class="filter-tag-text"
+        style="cursor: pointer"
+        (click)="clearFilter()"
+      >
+        გასუფთავება
+      </span>
     </p>
   </ng-container>
 </div>

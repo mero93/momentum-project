@@ -4,6 +4,7 @@
   [departments]="departments"
   [priorities]="priorities"
   [employees]="employees"
+  (sendFilter)="getStructuredTaskList($event)"
 ></app-task-filter>
 
 <ng-container *ngIf="structuredTaskList">

@@ -36,12 +36,18 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   loadTask() {
-    this.api
-      .getTaskById(Number(this.router.url.split('/')[2]))
-      .subscribe((res) => {
-        this.task = res;
-        this.statusId = this.task.status!.id!;
-      });
+    const taskId = Number(this.router.url.split('/')[2]);
+    if (this.api.tasks) {
+      this.task = this.api.tasks.find((task) => task.id === taskId)!;
+      this.statusId = this.task.status!.id!;
+    } else {
+      this.api
+        .getTaskById(Number(this.router.url.split('/')[2]))
+        .subscribe((res) => {
+          this.task = res;
+          this.statusId = this.task.status!.id!;
+        });
+    }
   }
 
   loadStatuses() {
@@ -53,8 +59,7 @@ export class TaskDetailsComponent implements OnInit {
   }
 
   selectStatus(): Status {
-    return this.statuses.find((status) => 
-      status.id === Number(this.statusId))!;
+    return this.statuses.find((status) => status.id === Number(this.statusId))!;
   }
 
   updateTaskStatus() {

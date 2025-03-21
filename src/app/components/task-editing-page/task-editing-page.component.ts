@@ -192,7 +192,7 @@ export class TaskEditionPageComponent implements OnInit {
 
   // randomiseTasks() {
   //   let i = 1;
-  //   while (i <= 5) {
+  //   while (i <= 10) {
   //     const task: any = {};
   //     task.name = `Random task ${i}`;
   //     task.description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
